@@ -270,13 +270,7 @@
 
         /* ─── HERO (opaque paper-textured bg, hides global video) ──────── */
         .hero {
-            background: #FAFBF7;
-            background-image:
-                radial-gradient(ellipse at 20% 30%, rgba(220, 230, 200, .35), transparent 55%),
-                radial-gradient(ellipse at 80% 70%, rgba(243, 235, 200, .30), transparent 55%),
-                url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.85  0 0 0 0 0.85  0 0 0 0 0.80  0 0 0 0.18 0'/></filter><rect width='420' height='420' filter='url(%23n)'/></svg>");
-            background-size: auto, auto, 420px 420px;
-            background-blend-mode: normal, normal, multiply;
+            background: #FAFBF7 url("assets/hero-bg.png") center/cover no-repeat;
             min-height: calc(100vh - 72px);
             display: flex;
             align-items: center;
