@@ -198,15 +198,12 @@
             flex-shrink: 0;
         }
 
-        .logo-mark {
-            width: 46px;
-            height: 46px;
+        .logo-img {
+            height: 56px;
+            width: auto;
+            display: block;
             flex-shrink: 0;
         }
-
-        .logo-text-wrap { display: flex; flex-direction: column; line-height: 1.15; }
-        .logo-name  { font-size: 15px; font-weight: 800; color: var(--green-dark); letter-spacing: -.3px; }
-        .logo-sub   { font-size: 9.5px; font-weight: 600; color: var(--gold); letter-spacing: .8px; text-transform: uppercase; }
 
         nav.main-nav { display: flex; align-items: center; gap: 2px; flex: 1; }
         nav.main-nav a {
@@ -1268,24 +1265,7 @@
 
         <!-- Logo -->
         <a href="#inicio" class="logo">
-            <svg class="logo-mark" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="46" height="46" rx="10" fill="#2A4E1A"/>
-                <!-- G arc -->
-                <path d="M36 14.5C32.8 11.1 28.6 9 24 9C15.7 9 9 15.7 9 24C9 32.3 15.7 39 24 39C31.2 39 37.2 34 38.7 27.3H24V21.5H38.8V24C38.8 32.9 32.2 40 24 40C14.6 40 7 32.4 7 23C7 13.6 14.6 6 24 6C29.6 6 34.6 8.5 38 12.5L36 14.5Z"
-                      fill="url(#goldG)" stroke="none"/>
-                <!-- G bar -->
-                <rect x="24" y="22" width="15" height="5" rx="1.5" fill="url(#goldG)"/>
-                <defs>
-                    <linearGradient id="goldG" x1="7" y1="6" x2="39" y2="40" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stop-color="#F2D050"/>
-                        <stop offset="100%" stop-color="#B8901C"/>
-                    </linearGradient>
-                </defs>
-            </svg>
-            <div class="logo-text-wrap">
-                <span class="logo-name">Godoi Broker</span>
-                <span class="logo-sub">Corretora de Seguros</span>
-            </div>
+            <img class="logo-img" src="assets/logo.png" alt="Godoi Broker Corretora de Seguros">
         </a>
 
         <!-- Nav -->
