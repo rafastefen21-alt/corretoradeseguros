@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Godoi Broker Corretora de Seguros | Proteção para Você e sua Família</title>
+    <meta name="description" content="Godoi Broker Corretora de Seguros - Encontre o melhor seguro para você, sua família e sua empresa. Seguro Auto, Vida, Saúde, Residencial e muito mais em Osasco - SP.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --green-dark:    #1C3612;
+            --green-primary: #2A4E1A;
+            --green-medium:  #396928;
+            --green-light:   #4C8A38;
+            --gold:          #C8A228;
+            --gold-light:    #DDB93A;
+            --gold-pale:     #F3E099;
+            --white:         #FFFFFF;
+            --off-white:     #F6F8F3;
+            --gray-light:    #EDEEED;
+            --text-dark:     #191C18;
+            --text-medium:   #48514A;
+            --text-light:    #747E76;
+            --border:        #E2E6DE;
+            --radius-sm:     8px;
+            --radius-md:     14px;
+            --radius-lg:     20px;
+            --shadow-sm:     0 2px 12px rgba(0,0,0,.06);
+            --shadow-md:     0 8px 32px rgba(0,0,0,.10);
+            --shadow-lg:     0 24px 56px rgba(0,0,0,.16);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            color: var(--text-dark);
+            background: #FFFFFF;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ─── ANIMATED BACKGROUND (fixed, behind everything) ──────────── */
+        .bg-stage {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+            background: #FFFFFF;
+        }
+        .bg-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            z-index: 1;
+        }
+        .bg-video-tint {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: rgba(246, 248, 243, .90);
+        }
+        /* hide blobs when video is present */
+        .bg-stage.has-video .bg-blob { display: none; }
+        /* on mobile / reduced motion: hide video, keep blobs */
+        @media (max-width: 880px), (prefers-reduced-motion: reduce) {
+            .bg-video, .bg-video-tint { display: none; }
+            .bg-stage.has-video .bg-blob { opacity: 1; }
+        }
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            will-change: transform, opacity;
+        }
+        .bg-blob.green {
+            width: 38vw;
+            height: 38vw;
+            max-width: 540px;
+            max-height: 540px;
+            background: radial-gradient(circle, rgba(57,105,40,.95) 0%, rgba(76,138,56,.6) 40%, rgba(76,138,56,0) 75%);
+            top: -5%;
+            left: -8%;
+            animation: blobGreen 11s ease-in-out infinite alternate, blobPulseA 7s ease-in-out infinite;
+        }
+        .bg-blob.gold {
+            width: 32vw;
+            height: 32vw;
+            max-width: 460px;
+            max-height: 460px;
+            background: radial-gradient(circle, rgba(200,162,40,.92) 0%, rgba(221,185,58,.55) 40%, rgba(221,185,58,0) 75%);
+            bottom: -8%;
+            right: -8%;
+            animation: blobGold 13s ease-in-out infinite alternate, blobPulseB 9s ease-in-out infinite;
+        }
+        @keyframes blobGreen {
+            0%   { transform: translate(0, 0) scale(1); }
+            25%  { transform: translate(35vw, 30vh) scale(1.15); }
+            50%  { transform: translate(60vw, 10vh) scale(.85); }
+            75%  { transform: translate(45vw, 50vh) scale(1.1); }
+            100% { transform: translate(20vw, 40vh) scale(1); }
+        }
+        @keyframes blobGold {
+            0%   { transform: translate(0, 0) scale(1); }
+            25%  { transform: translate(-40vw, -25vh) scale(1.2); }
+            50%  { transform: translate(-15vw, -50vh) scale(.85); }
+            75%  { transform: translate(-55vw, -20vh) scale(1.1); }
+            100% { transform: translate(-30vw, -45vh) scale(.95); }
+        }
+        @keyframes blobPulseA {
+            0%, 100% { opacity: .35; }
+            50%      { opacity: 1; }
+        }
+        @keyframes blobPulseB {
+            0%, 100% { opacity: .9; }
+            50%      { opacity: .3; }
+        }
+
+        /* ─── SCROLL CARD EFFECT (rising panels over same fixed bg) ───── */
+        .content-card {
+            position: relative;
+            z-index: 2;
+        }
+        /* every direct-child block becomes a rising panel */
+        .content-card > .section,
+        .content-card > .renew-banner,
+        .content-card > .cta-section,
+        .content-card > footer {
+            position: relative;
+            border-radius: 36px 36px 0 0;
+            box-shadow: 0 -12px 40px rgba(0,0,0,.05);
+        }
+        /* trust-bar is flat — no rounded panel, no overlap */
+        .content-card > .trust-bar {
+            position: relative;
+            z-index: 1;
+        }
+        /* section right after trust-bar: no rounded top (both are white, looks like an empty tab) */
+        .content-card > .trust-bar + .section {
+            border-radius: 0;
+            box-shadow: none;
+            margin-top: 0;
+        }
+        /* each subsequent panel rises over the previous one */
+        .content-card > .section            { margin-top: -36px; z-index: 2; }
+        .content-card > .renew-banner       { margin-top: -36px; z-index: 3; }
+        .content-card > .section + .section { margin-top: -36px; z-index: 4; }
+        .content-card > .cta-section        { margin-top: -36px; z-index: 5; }
+        .content-card > footer              { margin-top: -36px; z-index: 6; }
+        /* progressive z-index so later panels paint on top of earlier ones */
+        .content-card > *:nth-child(1) { z-index: 1; }
+        .content-card > *:nth-child(2) { z-index: 2; }
+        .content-card > *:nth-child(3) { z-index: 3; }
+        .content-card > *:nth-child(4) { z-index: 4; }
+        .content-card > *:nth-child(5) { z-index: 5; }
+        .content-card > *:nth-child(6) { z-index: 6; }
+        .content-card > *:nth-child(7) { z-index: 7; }
+        .content-card > *:nth-child(8) { z-index: 8; }
+        .content-card > *:nth-child(9) { z-index: 9; }
+
+        /* ─── HEADER ─────────────────────────────────────────────────────── */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255,255,255,.96);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow .25s;
+        }
+        .header.scrolled { box-shadow: var(--shadow-md); }
+
+        .header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            flex-shrink: 0;
+        }
+
+        .logo-mark {
+            width: 46px;
+            height: 46px;
+            flex-shrink: 0;
+        }
+
+        .logo-text-wrap { display: flex; flex-direction: column; line-height: 1.15; }
+        .logo-name  { font-size: 15px; font-weight: 800; color: var(--green-dark); letter-spacing: -.3px; }
+        .logo-sub   { font-size: 9.5px; font-weight: 600; color: var(--gold); letter-spacing: .8px; text-transform: uppercase; }
+
+        nav.main-nav { display: flex; align-items: center; gap: 2px; flex: 1; }
+        nav.main-nav a {
+            font-size: 13.5px;
+            font-weight: 500;
+            color: var(--text-medium);
+            text-decoration: none;
+            padding: 7px 13px;
+            border-radius: var(--radius-sm);
+            transition: color .2s, background .2s;
+            white-space: nowrap;
+        }
+        nav.main-nav a:hover { color: var(--green-primary); background: var(--off-white); }
+
+        .header-right { display: flex; align-items: center; gap: 14px; margin-left: auto; }
+
+        .hdr-phone {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-medium);
+            text-decoration: none;
+        }
+        .hdr-phone:hover { color: var(--green-primary); }
+
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: var(--gold);
+            color: #fff;
+            font-size: 13.5px;
+            font-weight: 700;
+            padding: 10px 22px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            letter-spacing: .2px;
+            transition: background .2s, transform .15s, box-shadow .2s;
+            box-shadow: 0 4px 16px rgba(200,162,40,.35);
+        }
+        .btn-cta:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(200,162,40,.45); }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+        .mobile-menu-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-dark);
+            border-radius: 2px;
+            transition: all .3s;
+        }
+
+        /* ─── HERO ────────────────────────────────────────────────────────── */
+        .hero {
+            background: transparent;
+            min-height: calc(100vh - 72px);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-orb1 {
+            position: absolute;
+            top: -15%;
+            right: 5%;
+            width: 520px;
+            height: 520px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200,162,40,.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-orb2 {
+            position: absolute;
+            bottom: -20%;
+            left: 0%;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-grid-lines {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .hero-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 88px 32px;
+            display: grid;
+            grid-template-columns: 1fr 440px;
+            gap: 72px;
+            align-items: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(200,162,40,.18);
+            border: 1px solid rgba(200,162,40,.45);
+            color: #8C6F0E;
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 100px;
+            margin-bottom: 24px;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: clamp(34px, 4.5vw, 58px);
+            font-weight: 900;
+            color: var(--green-dark);
+            line-height: 1.07;
+            letter-spacing: -1.5px;
+            margin-bottom: 20px;
+            text-shadow: 0 1px 12px rgba(255,255,255,.4);
+        }
+        .hero-title .accent { color: var(--gold); }
+
+        .hero-sub {
+            font-size: 17px;
+            color: var(--text-medium);
+            max-width: 480px;
+            line-height: 1.7;
+            margin-bottom: 44px;
+            font-weight: 400;
+        }
+
+        .hero-stats { display: flex; gap: 40px; }
+        .stat-num { font-size: 28px; font-weight: 800; color: var(--green-primary); letter-spacing: -.5px; }
+        .stat-lbl { font-size: 12.5px; color: var(--text-light); margin-top: 1px; }
+
+        /* ─── QUOTE CARD ──────────────────────────────────────────────────── */
+        .quote-card {
+            background: #fff;
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .quote-card h3 {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+        .quote-card .sub {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-bottom: 26px;
+        }
+        .quote-card .sub strong { color: var(--green-primary); font-weight: 700; }
+
+        .form-field { margin-bottom: 12px; }
+        .form-field input,
+        .form-field select {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background: var(--off-white);
+            outline: none;
+            transition: border-color .2s, box-shadow .2s, background .2s;
+            appearance: none;
+        }
+        .form-field input::placeholder { color: var(--text-light); }
+        .form-field input:focus,
+        .form-field select:focus {
+            border-color: var(--green-medium);
+            box-shadow: 0 0 0 3px rgba(57,105,40,.12);
+            background: #fff;
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .form-row .form-field { margin: 0; }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            margin-top: 8px;
+            background: var(--green-primary);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background .2s, transform .15s, box-shadow .2s;
+            box-shadow: 0 4px 16px rgba(42,78,26,.3);
+        }
+        .btn-submit:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(42,78,26,.4); }
+
+        .form-disclaimer {
+            text-align: center;
+            font-size: 11.5px;
+            color: var(--text-light);
+            margin-top: 12px;
+        }
+
+        /* ─── TRUST BAR ──────────────────────────────────────────────────── */
+        .trust-bar {
+            background: #fff;
+            padding: 36px 0 28px;
+            border-bottom: 1px solid var(--border);
+        }
+        .trust-bar-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+            align-items: stretch;
+        }
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4px 28px;
+            position: relative;
+        }
+        .trust-item + .trust-item::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 38px;
+            background: var(--border);
+        }
+        .trust-item::after {
+            content: "";
+            position: absolute;
+            left: 28px;
+            top: 0;
+            width: 22px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        .trust-copy { padding-top: 14px; }
+        .trust-copy strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: -.1px;
+            margin-bottom: 4px;
+        }
+        .trust-copy span {
+            font-size: 12.5px;
+            color: var(--text-light);
+            letter-spacing: .1px;
+        }
+
+        /* ─── SHARED SECTION STYLES ─────────────────────────────────────── */
+        .section      { padding: 100px 0; }
+        .section-alt  { background: var(--off-white); }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+        .section-tag::before {
+            content: '';
+            display: inline-block;
+            width: 22px;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+
+        .section-h { font-size: clamp(26px, 3vw, 40px); font-weight: 800; color: var(--text-dark); letter-spacing: -.7px; line-height: 1.18; margin-bottom: 14px; }
+
+        /* ─── RISE-UP HEADLINE ANIMATION (line-by-line reveal) ────────── */
+        .rise-h .rise-line {
+            display: block;
+            overflow: hidden;
+            line-height: 1.18;
+        }
+        .rise-h .rise-line > span {
+            display: inline-block;
+            transform: translateY(110%);
+            transition: transform .9s cubic-bezier(.22,.9,.27,1);
+            will-change: transform;
+        }
+        .rise-h .rise-line:nth-child(2) > span { transition-delay: .12s; }
+        .rise-h.rise-visible .rise-line > span { transform: translateY(0); }
+        .section-p { font-size: 16.5px; color: var(--text-light); max-width: 540px; line-height: 1.7; }
+
+        .section-header        { margin-bottom: 56px; }
+        .section-header.center { text-align: center; }
+        .section-header.center .section-p { margin: 0 auto; }
+
+        /* ─── SERVICES ───────────────────────────────────────────────────── */
+        /* ─── SERVICES BENTO MOSAIC ─────────────────────────────────────── */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-auto-rows: 180px;
+            gap: 14px;
+        }
+
+        .svc-card {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: 18px;
+            padding: 28px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .25s, box-shadow .25s, transform .25s;
+        }
+        .svc-card:hover {
+            border-color: var(--green-medium);
+            box-shadow: 0 14px 40px rgba(42,78,26,.12);
+            transform: translateY(-3px);
+        }
+        .svc-name { font-size: 16px; font-weight: 700; color: var(--text-dark); letter-spacing: -.2px; }
+        .svc-desc { font-size: 13.5px; color: var(--text-light); line-height: 1.6; }
+        .svc-link {
+            margin-top: auto;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--green-medium);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ─── BENTO SPANS ─────────────────────────────────────────────── */
+        .svc-card.span-4-2 { grid-column: span 4; grid-row: span 2; }
+        .svc-card.span-3-2 { grid-column: span 3; grid-row: span 2; }
+        .svc-card.span-3   { grid-column: span 3; }
+        .svc-card.span-2   { grid-column: span 2; }
+
+        /* ─── FEATURED (dark green hero card) ─────────────────────────── */
+        .svc-card.featured-dark {
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+            border-color: transparent;
+            color: #fff;
+            padding: 36px;
+        }
+        .svc-card.featured-dark .svc-name {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.6px;
+            line-height: 1.15;
+            max-width: 80%;
+        }
+        .svc-card.featured-dark .svc-desc {
+            font-size: 15px;
+            color: rgba(255,255,255,.78);
+            max-width: 75%;
+        }
+        .svc-card.featured-dark .svc-link {
+            color: var(--gold-light);
+            font-size: 14px;
+        }
+        .svc-card.featured-dark::after {
+            content: "";
+            position: absolute;
+            right: -80px;
+            bottom: -80px;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(200,162,40,.35) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .svc-card.featured-dark:hover { transform: translateY(-3px); box-shadow: 0 18px 50px rgba(28,54,18,.30); }
+
+        /* gold-tinted video card overlay (preserves the gold base) */
+        .svc-card.featured-gold.has-video .card-video-overlay {
+            background: linear-gradient(140deg, rgba(250,241,210,.92) 0%, rgba(243,224,153,.85) 100%);
+        }
+        .svc-card.featured-gold.has-video:hover .card-video-overlay {
+            background: linear-gradient(140deg, rgba(250,241,210,.30) 0%, rgba(120,90,15,.45) 100%);
+        }
+        .svc-card.featured-gold.has-video:hover .svc-name,
+        .svc-card.featured-gold.has-video:hover .svc-desc { color: #fff; }
+        .svc-card.featured-gold.has-video:hover .svc-link { color: var(--gold-light); }
+        .svc-card.featured-gold.has-video .svc-name,
+        .svc-card.featured-gold.has-video .svc-desc,
+        .svc-card.featured-gold.has-video .svc-link { transition: color .4s ease; }
+
+        /* compact dark video card (for span-2 size) */
+        .svc-card.featured-video-sm {
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+            border-color: transparent;
+            color: #fff;
+        }
+        .svc-card.featured-video-sm .svc-name { color: #fff; font-size: 17px; font-weight: 800; letter-spacing: -.2px; }
+        .svc-card.featured-video-sm .svc-desc { color: rgba(255,255,255,.78); }
+        .svc-card.featured-video-sm .svc-link { color: var(--gold-light); }
+        .svc-card.featured-video-sm:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(28,54,18,.30); }
+
+        /* video on hover */
+        .svc-card.has-video .card-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity .5s ease;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .svc-card.has-video .card-video-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(28,54,18,.92) 0%, rgba(42,78,26,.78) 60%, rgba(42,78,26,.55) 100%);
+            opacity: 1;
+            transition: opacity .5s ease;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .svc-card.has-video .card-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            height: 100%;
+        }
+        .svc-card.has-video:hover .card-video { opacity: 1; }
+        .svc-card.has-video:hover .card-video-overlay {
+            background: linear-gradient(135deg, rgba(28,54,18,.78) 0%, rgba(42,78,26,.55) 60%, rgba(42,78,26,.30) 100%);
+        }
+
+        /* ─── FEATURED (gold tint card) ───────────────────────────────── */
+        .svc-card.featured-gold {
+            background: linear-gradient(140deg, #FAF1D2 0%, #F3E099 100%);
+            border-color: transparent;
+            padding: 32px;
+        }
+        .svc-card.featured-gold .svc-name {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -.4px;
+            line-height: 1.18;
+        }
+        .svc-card.featured-gold .svc-desc {
+            font-size: 14px;
+            color: #5C4A0E;
+        }
+        .svc-card.featured-gold .svc-link { color: #6B5012; }
+        .svc-card.featured-gold::after {
+            content: "";
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,.55) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ─── FEATURED (light green wide card) ────────────────────────── */
+        .svc-card.featured-light {
+            background: linear-gradient(135deg, #EDF4E5 0%, #DCEAD0 100%);
+            border-color: transparent;
+        }
+        .svc-card.featured-light .svc-name {
+            font-size: 18px;
+            color: var(--green-dark);
+        }
+
+        /* ─── BENEFITS ────────────────────────────────────────────────────── */
+        .section-dark {
+            background: var(--green-dark);
+            padding: 100px 0;
+        }
+        .section-dark .section-tag        { color: var(--gold-light); }
+        .section-dark .section-tag::before { background: var(--gold-light); }
+        .section-dark .section-h          { color: #fff; }
+        .section-dark .section-p          { color: rgba(255,255,255,.6); }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .ben-card {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: var(--radius-md);
+            padding: 30px 28px;
+            transition: background .25s, border-color .25s;
+        }
+        .ben-card:hover {
+            background: rgba(255,255,255,.1);
+            border-color: rgba(200,162,40,.3);
+        }
+        .ben-num {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--gold);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            opacity: .8;
+        }
+        .ben-title { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 10px; }
+
+        /* ─── ANCORD CREDENTIAL BLOCK ─────────────────────────────────── */
+        .ancord-block {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 56px;
+            align-items: center;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+        .ancord-seal {
+            background: #fff;
+            border-radius: 22px;
+            padding: 38px 32px;
+            box-shadow: 0 20px 50px rgba(0,0,0,.30);
+            position: relative;
+            overflow: hidden;
+        }
+        .ancord-seal--logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 180px;
+            padding: 48px 32px;
+        }
+        .ancord-seal--logo .ancord-logo {
+            margin-bottom: 0;
+            font-size: 56px;
+            letter-spacing: -2px;
+        }
+        .ancord-logo {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            font-size: 38px;
+            letter-spacing: -1.5px;
+            line-height: 1;
+            margin-bottom: 6px;
+            position: relative;
+        }
+        .ancord-logo .a    { color: #2EA8E0; }
+        .ancord-logo .rest { color: #1E1E1E; }
+        .ancord-tag {
+            font-size: 9.5px;
+            font-weight: 700;
+            color: #1E1E1E;
+            letter-spacing: 2px;
+            border: 1.5px solid #1E1E1E;
+            padding: 4px 8px;
+            display: inline-block;
+            border-radius: 3px;
+            margin-bottom: 22px;
+            position: relative;
+        }
+        .ancord-divider { height: 1px; background: var(--border); margin-bottom: 22px; position: relative; }
+        .ancord-meta { display: flex; flex-direction: column; gap: 18px; position: relative; }
+        .ancord-meta-row { display: flex; gap: 28px; }
+        .ancord-meta-item { display: flex; flex-direction: column; gap: 4px; }
+        .ancord-meta-item .lbl {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+        .ancord-meta-item .val {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .ancord-copy { color: #fff; }
+        .ancord-eyebrow {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+            padding-left: 36px;
+            position: relative;
+        }
+        .ancord-eyebrow::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 26px;
+            height: 2px;
+            background: var(--gold-light);
+            transform: translateY(-50%);
+        }
+        .ancord-h {
+            font-size: clamp(28px, 3vw, 40px);
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -.7px;
+            margin-bottom: 18px;
+            color: #fff;
+        }
+        .ancord-p {
+            font-size: 15.5px;
+            color: rgba(255,255,255,.78);
+            line-height: 1.7;
+            margin-bottom: 26px;
+            max-width: 560px;
+        }
+        .ancord-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+        .ancord-pill {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--gold-pale);
+            background: rgba(200,162,40,.12);
+            border: 1px solid rgba(200,162,40,.35);
+            padding: 7px 14px;
+            border-radius: 100px;
+            letter-spacing: .2px;
+        }
+        @media (max-width: 880px) {
+            .ancord-block { grid-template-columns: 1fr; gap: 36px; }
+            .ancord-seal { max-width: 420px; }
+        }
+        .ben-desc  { font-size: 14px; color: rgba(255,255,255,.58); line-height: 1.7; }
+
+        /* ─── RENEW BANNER ───────────────────────────────────────────────── */
+        .renew-banner {
+            background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 60%, #3D6A28 100%);
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+        .renew-banner::after {
+            content: '';
+            position: absolute;
+            right: 0; top: 0; bottom: 0;
+            width: 50%;
+            background: linear-gradient(90deg, transparent, rgba(200,162,40,.07));
+            pointer-events: none;
+        }
+        .renew-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 68px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        .renew-content h2 {
+            font-size: clamp(26px, 3vw, 38px);
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -.5px;
+            margin-bottom: 10px;
+        }
+        .renew-content p { font-size: 16px; color: rgba(255,255,255,.68); max-width: 520px; line-height: 1.65; }
+
+        .btn-renew {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gold);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 18px 36px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            white-space: nowrap;
+            flex-shrink: 0;
+            transition: background .2s, transform .15s, box-shadow .2s;
+            box-shadow: 0 6px 20px rgba(200,162,40,.4);
+        }
+        .btn-renew:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(200,162,40,.5); }
+
+        /* ─── PARTNERS MARQUEE ─────────────────────────────────────────── */
+        .partners-marquee {
+            position: relative;
+            overflow: hidden;
+            mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 8%, #000 92%, transparent 100%);
+        }
+        .partners-track {
+            display: flex;
+            align-items: center;
+            gap: 64px;
+            width: max-content;
+            animation: partnersScroll 32s linear infinite;
+        }
+        .partners-marquee:hover .partners-track { animation-play-state: paused; }
+        @keyframes partnersScroll {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+
+        .partner-logo {
+            flex: 0 0 auto;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 22px 32px;
+            min-width: 200px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: box-shadow .25s, transform .25s, border-color .25s;
+        }
+        .partner-logo:hover { box-shadow: 0 10px 30px rgba(0,0,0,.07); transform: translateY(-3px); border-color: var(--gold); }
+
+        /* brand wordmarks */
+        .lg-porto { font-family: 'Inter', sans-serif; font-weight: 900; font-size: 18px; color: #0E0E0E; line-height: .92; letter-spacing: .5px; display: flex; align-items: center; gap: 10px; }
+        .lg-porto .sail { width: 28px; height: 22px; color: #00A0E1; flex-shrink: 0; }
+        .lg-porto .stack { display: flex; flex-direction: column; }
+
+        .lg-azul { font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; line-height: 1; }
+        .lg-azul .word { font-style: italic; font-weight: 800; font-size: 30px; color: #1B4DA1; letter-spacing: -.5px; position: relative; padding-bottom: 3px; }
+        .lg-azul .word::after { content: ""; position: absolute; left: 12%; right: 12%; bottom: 0; height: 3px; background: #2EA8E0; border-radius: 2px; }
+        .lg-azul .sub  { font-size: 11px; font-weight: 800; color: #1B4DA1; letter-spacing: 4px; margin-top: 6px; }
+
+        .lg-tokio { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 12px; color: #1A1A1A; letter-spacing: .8px; line-height: 1.25; display: flex; align-items: center; gap: 12px; }
+        .lg-tokio .mark { width: 32px; height: 32px; flex-shrink: 0; }
+
+        .lg-bradesco { font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: flex-start; line-height: 1; gap: 4px; }
+        .lg-bradesco .word { font-weight: 800; font-size: 22px; color: #CC092F; letter-spacing: -.5px; }
+        .lg-bradesco .sub  { font-weight: 400; font-size: 13px; color: #CC092F; letter-spacing: .5px; }
+        .lg-bradesco .word::before { content: "◗"; margin-right: 4px; font-size: 18px; }
+
+        .lg-sompo { font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 10px; }
+        .lg-sompo .ball { width: 26px; height: 26px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff 0%, #DA2128 35%, #7A0E12 100%); flex-shrink: 0; }
+        .lg-sompo .stack { display: flex; flex-direction: column; line-height: 1; gap: 2px; }
+        .lg-sompo .word { font-weight: 900; font-size: 22px; color: #1B1B1B; letter-spacing: -.5px; }
+        .lg-sompo .sub  { font-weight: 700; font-size: 11px; color: #6F7378; letter-spacing: 2px; }
+
+        .lg-allianz { font-family: 'Inter', sans-serif; display: flex; align-items: center; gap: 10px; color: #003781; }
+        .lg-allianz .word { font-weight: 900; font-size: 26px; letter-spacing: -.3px; }
+        .lg-allianz .ring { width: 28px; height: 28px; border: 2.5px solid currentColor; border-radius: 50%; display: flex; align-items: center; justify-content: center; gap: 2px; }
+        .lg-allianz .ring i { display: block; width: 2.5px; background: currentColor; border-radius: 1px; }
+        .lg-allianz .ring i:nth-child(1) { height: 12px; }
+        .lg-allianz .ring i:nth-child(2) { height: 16px; }
+        .lg-allianz .ring i:nth-child(3) { height: 12px; }
+
+        .lg-mapfre { font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; line-height: 1; gap: 5px; color: #E30613; }
+        .lg-mapfre .icon { width: 24px; height: 24px; border: 2px solid currentColor; border-radius: 50%; position: relative; }
+        .lg-mapfre .icon::before { content: ""; position: absolute; left: 50%; top: 4px; transform: translateX(-50%); width: 2px; height: 8px; background: currentColor; border-radius: 1px; }
+        .lg-mapfre .icon::after  { content: ""; position: absolute; left: 50%; top: 8px; transform: translateX(-50%); width: 12px; height: 6px; border: 2px solid currentColor; border-bottom: none; border-radius: 12px 12px 0 0; }
+        .lg-mapfre .word { font-weight: 900; font-size: 22px; letter-spacing: 1px; }
+        .lg-mapfre .sub  { font-weight: 700; font-size: 11px; letter-spacing: 4px; }
+
+        .lg-sulamerica { font-family: 'Inter', sans-serif; display: flex; flex-direction: column; align-items: center; line-height: 1; gap: 6px; }
+        .lg-sulamerica .swoosh { width: 90px; height: 18px; position: relative; }
+        .lg-sulamerica .swoosh::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, #003781 0%, #003781 35%, #F37020 50%, #003781 65%, #003781 100%); -webkit-mask: radial-gradient(ellipse 50px 25px at 50% 100%, transparent 60%, #000 61%); mask: radial-gradient(ellipse 50px 25px at 50% 100%, transparent 60%, #000 61%); }
+        .lg-sulamerica .word { font-weight: 800; font-size: 22px; color: #003781; letter-spacing: -.4px; }
+        .lg-sulamerica .word .am { color: #F37020; }
+
+        /* ─── TESTIMONIALS ───────────────────────────────────────────────── */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .testi-card {
+            background: #fff;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color .25s, box-shadow .25s;
+        }
+        .testi-card:hover { border-color: var(--gold); box-shadow: 0 10px 32px rgba(200,162,40,.1); }
+
+        .testi-stars { color: var(--gold); font-size: 17px; margin-bottom: 16px; letter-spacing: 2px; }
+        .testi-text  { font-size: 14.5px; color: var(--text-medium); line-height: 1.75; flex: 1; margin-bottom: 22px; }
+
+        .testi-author { display: flex; align-items: center; gap: 12px; }
+        .testi-avatar {
+            width: 42px;
+            height: 42px;
+            background: var(--green-medium);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .testi-name { font-size: 14px; font-weight: 700; color: var(--text-dark); }
+        .testi-role { font-size: 12px; color: var(--text-light); }
+
+        /* ─── CTA BOTTOM ─────────────────────────────────────────────────── */
+        .cta-section {
+            background: var(--off-white);
+            padding: 100px 0;
+            text-align: center;
+        }
+        .cta-section .section-h { font-size: clamp(28px, 3.5vw, 46px); margin-bottom: 18px; }
+        .cta-section .section-p { margin: 0 auto 36px; }
+        .cta-btns { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--green-primary);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            padding: 16px 32px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            transition: background .2s, transform .15s;
+            box-shadow: 0 6px 20px rgba(42,78,26,.3);
+        }
+        .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--green-primary);
+            font-size: 15px;
+            font-weight: 700;
+            padding: 15px 30px;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--green-primary);
+            text-decoration: none;
+            transition: background .2s, color .2s;
+        }
+        .btn-outline:hover { background: var(--green-primary); color: #fff; }
+
+        /* ─── FOOTER ─────────────────────────────────────────────────────── */
+        footer {
+            background: var(--green-dark);
+            padding: 72px 0 0;
+        }
+
+        .footer-grid {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.2fr;
+            gap: 48px;
+        }
+
+        .ftr-brand-name { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+        .ftr-brand-sub  { font-size: 10px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px; }
+        .ftr-desc       { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.75; max-width: 270px; margin-bottom: 22px; }
+
+        .ftr-contacts a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: rgba(255,255,255,.65);
+            text-decoration: none;
+            margin-bottom: 10px;
+            transition: color .2s;
+        }
+        .ftr-contacts a:hover { color: var(--gold-light); }
+
+        .ftr-col h4 {
+            font-size: 11px;
+            font-weight: 700;
+            color: rgba(255,255,255,.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 18px;
+        }
+        .ftr-col ul { list-style: none; }
+        .ftr-col ul li { margin-bottom: 10px; }
+        .ftr-col ul li a {
+            font-size: 14px;
+            color: rgba(255,255,255,.58);
+            text-decoration: none;
+            transition: color .2s;
+        }
+        .ftr-col ul li a:hover { color: var(--gold-light); }
+
+        .ftr-bottom {
+            max-width: 1280px;
+            margin: 48px auto 0;
+            padding: 22px 32px;
+            border-top: 1px solid rgba(255,255,255,.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .ftr-bottom p { font-size: 12.5px; color: rgba(255,255,255,.35); }
+        .ftr-socials { display: flex; gap: 10px; }
+        .ftr-social {
+            width: 34px;
+            height: 34px;
+            background: rgba(255,255,255,.08);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255,255,255,.6);
+            text-decoration: none;
+            font-size: 15px;
+            transition: background .2s, color .2s;
+        }
+        .ftr-social:hover { background: var(--gold); color: #fff; }
+
+        /* ─── WHATSAPP FLOAT ─────────────────────────────────────────────── */
+        .wa-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+        }
+        .wa-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #25D366;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 13px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 8px 28px rgba(37,211,102,.4);
+            transition: transform .2s, box-shadow .2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .wa-btn:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(37,211,102,.5); }
+
+        /* ─── RESPONSIVE ─────────────────────────────────────────────────── */
+        /* ─── FADE-IN ANIMATION ──────────────────────────────────────────── */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity .5s ease, transform .5s ease, border-color .25s, box-shadow .25s;
+        }
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 1100px) {
+            .hero-inner { grid-template-columns: 1fr; }
+            .quote-card { max-width: 480px; }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 780px) {
+            .header-inner { padding: 0 20px; gap: 12px; }
+            nav.main-nav { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .hdr-phone { display: none; }
+            .hero-inner { padding: 64px 20px; gap: 40px; }
+            .hero-stats { gap: 28px; flex-wrap: wrap; }
+            .services-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+            .services-grid .svc-card,
+            .services-grid .svc-card.span-4-2,
+            .services-grid .svc-card.span-3-2,
+            .services-grid .svc-card.span-3,
+            .services-grid .svc-card.span-2 { grid-column: span 1; grid-row: span 1; min-height: 160px; }
+            .svc-card.featured-dark .svc-name { font-size: 22px; max-width: 100%; }
+            .svc-card.featured-dark .svc-desc { max-width: 100%; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .renew-inner { flex-direction: column; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; padding: 0 20px; }
+            .ftr-bottom { padding: 20px; }
+            .section { padding: 72px 0; }
+            .container { padding: 0 20px; }
+            .trust-bar-inner { justify-content: flex-start; padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Animated background stage (fixed bg with looping video + blob fallback) -->
+<div class="bg-stage has-video" aria-hidden="true">
+    <video class="bg-video" autoplay muted loop playsinline preload="auto" src="assets/bg-loop.mp4"></video>
+    <div class="bg-video-tint"></div>
+    <div class="bg-blob green"></div>
+    <div class="bg-blob gold"></div>
+</div>
+
+<!-- WhatsApp Float -->
+<div class="wa-float">
+    <a href="https://wa.me/5511318417777" class="wa-btn" target="_blank" rel="noopener">
+        Fale conosco
+    </a>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════ HEADER -->
+<header class="header" id="header">
+    <div class="header-inner">
+
+        <!-- Logo -->
+        <a href="#inicio" class="logo">
+            <svg class="logo-mark" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="46" height="46" rx="10" fill="#2A4E1A"/>
+                <!-- G arc -->
+                <path d="M36 14.5C32.8 11.1 28.6 9 24 9C15.7 9 9 15.7 9 24C9 32.3 15.7 39 24 39C31.2 39 37.2 34 38.7 27.3H24V21.5H38.8V24C38.8 32.9 32.2 40 24 40C14.6 40 7 32.4 7 23C7 13.6 14.6 6 24 6C29.6 6 34.6 8.5 38 12.5L36 14.5Z"
+                      fill="url(#goldG)" stroke="none"/>
+                <!-- G bar -->
+                <rect x="24" y="22" width="15" height="5" rx="1.5" fill="url(#goldG)"/>
+                <defs>
+                    <linearGradient id="goldG" x1="7" y1="6" x2="39" y2="40" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stop-color="#F2D050"/>
+                        <stop offset="100%" stop-color="#B8901C"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <div class="logo-text-wrap">
+                <span class="logo-name">Godoi Broker</span>
+                <span class="logo-sub">Corretora de Seguros</span>
+            </div>
+        </a>
+
+        <!-- Nav -->
+        <nav class="main-nav">
+            <a href="#servicos">Auto</a>
+            <a href="#servicos">Vida</a>
+            <a href="#servicos">Consórcio</a>
+            <a href="#servicos">Planos de Saúde</a>
+            <a href="#servicos">Para Você</a>
+            <a href="#servicos">Para Empresa</a>
+            <a href="#sobre">Institucional</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="header-right">
+            <a href="tel:1131841777" class="hdr-phone">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.23h3a2 2 0 0 1 2 1.72c.127.96.36 1.902.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45c.908.34 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                11 3184-1777
+            </a>
+            <a href="#cotacao" class="btn-cta">Cote Grátis →</a>
+            <button class="mobile-menu-btn" id="mobileBtn" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+
+    </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════════════ HERO -->
+<section class="hero" id="inicio">
+    <div class="hero-orb1"></div>
+    <div class="hero-orb2"></div>
+    <div class="hero-grid-lines"></div>
+
+    <div class="hero-inner">
+
+        <!-- Copy -->
+        <div>
+            <div class="hero-badge">Melhor custo-benefício em seguros</div>
+            <h1 class="hero-title">
+                Proteja o que é<br>
+                <span class="accent">mais importante</span><br>
+                para você
+            </h1>
+            <p class="hero-sub">
+                Somos especialistas em encontrar a cobertura ideal para sua família,
+                seu carro e sua empresa. Compare propostas das melhores seguradoras do
+                Brasil com atendimento 100% personalizado.
+            </p>
+        </div>
+
+        <!-- Quote Form -->
+        <div class="quote-card" id="cotacao">
+            <h3>Faça sua Cotação</h3>
+            <p class="sub">Obtenha o <strong>melhor custo-benefício</strong> gratuitamente</p>
+
+            <form id="quoteForm">
+                <div class="form-field">
+                    <input type="text" placeholder="Seu nome completo" required>
+                </div>
+                <div class="form-field">
+                    <input type="email" placeholder="Seu e-mail" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-field">
+                        <input type="tel" placeholder="(DDD) Telefone" required>
+                    </div>
+                    <div class="form-field">
+                        <select>
+                            <option value="">Seguro desejado</option>
+                            <option>Seguro Auto</option>
+                            <option>Seguro de Vida</option>
+                            <option>Plano de Saúde</option>
+                            <option>Seguro Residencial</option>
+                            <option>Seguro Empresarial</option>
+                            <option>Consórcio</option>
+                            <option>Seguro Eletrônico</option>
+                            <option>Seguro Moto</option>
+                            <option>Seguro Viagem</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit" id="submitBtn">
+                    Solicitar Cotação Gratuita
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+            </form>
+
+            <p class="form-disclaimer">Seus dados estão protegidos · Política de Privacidade</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════ CONTENT CARD (scroll rise effect) -->
+<div class="content-card">
+
+<!-- ══════════════════════════════════════════════════════════════ TRUST BAR -->
+<div class="trust-bar">
+    <div class="trust-bar-inner">
+        <div class="trust-item">
+            <div class="trust-copy"><strong>Corretora Certificada</strong><span>SUSEP autorizada</span></div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-copy"><strong>Resposta em até 24h</strong><span>Cotações rápidas</span></div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-copy"><strong>Sem custo adicional</strong><span>Melhor preço garantido</span></div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-copy"><strong>Atendimento Personalizado</strong><span>Consultores dedicados</span></div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-copy"><strong>5.0 no Google</strong><span>+200 avaliações</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ SERVICES -->
+<section class="section" id="servicos">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-h rise-h">
+                <span class="rise-line"><span>Cobertura completa para</span></span>
+                <span class="rise-line"><span>cada fase da sua vida</span></span>
+            </h2>
+            <p class="section-p">Trabalhamos com as melhores seguradoras do mercado para garantir a proteção ideal para você e sua família.</p>
+        </div>
+
+        <div class="services-grid">
+            <a href="#cotacao" class="svc-card featured-dark span-4-2 has-video">
+                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-auto.mp4"></video>
+                <div class="card-video-overlay"></div>
+                <div class="card-content">
+                    <div class="svc-name">Seguro Auto<br>com proteção 360°</div>
+                    <div class="svc-desc">Cobertura completa contra roubo, colisão, danos a terceiros e assistência 24h em todo o Brasil.</div>
+                    <div class="svc-link">Cotar agora →</div>
+                </div>
+            </a>
+            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
+                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-vida.mp4"></video>
+                <div class="card-video-overlay"></div>
+                <div class="card-content">
+                    <div class="svc-name">Seguro de Vida</div>
+                    <div class="svc-desc">Garanta o futuro da sua família.</div>
+                    <div class="svc-link">Cotar →</div>
+                </div>
+            </a>
+            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
+                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-saude.mp4"></video>
+                <div class="card-video-overlay"></div>
+                <div class="card-content">
+                    <div class="svc-name">Planos de Saúde</div>
+                    <div class="svc-desc">Individuais, familiares e empresariais.</div>
+                    <div class="svc-link">Cotar →</div>
+                </div>
+            </a>
+            <a href="#cotacao" class="svc-card featured-gold span-3-2 has-video">
+                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-residencial.mp4"></video>
+                <div class="card-video-overlay"></div>
+                <div class="card-content">
+                    <div class="svc-name">Seguro Residencial completo</div>
+                    <div class="svc-desc">Proteja seu lar contra incêndio, roubo, danos elétricos e desastres naturais com coberturas flexíveis.</div>
+                    <div class="svc-link">Cotar agora →</div>
+                </div>
+            </a>
+            <a href="#cotacao" class="svc-card featured-video-sm span-3 has-video">
+                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-empresarial.mp4"></video>
+                <div class="card-video-overlay"></div>
+                <div class="card-content">
+                    <div class="svc-name">Seguro Empresarial</div>
+                    <div class="svc-desc">Proteção completa para seu negócio, patrimônio e funcionários.</div>
+                    <div class="svc-link">Cotar agora →</div>
+                </div>
+            </a>
+            <a href="#cotacao" class="svc-card featured-video-sm span-3 has-video">
+                <video class="card-video" muted loop playsinline preload="metadata" src="assets/consorcio.mp4"></video>
+                <div class="card-video-overlay"></div>
+                <div class="card-content">
+                    <div class="svc-name">Consórcio</div>
+                    <div class="svc-desc">Conquiste seu bem sem juros — imóvel, carro ou moto.</div>
+                    <div class="svc-link">Saiba mais →</div>
+                </div>
+            </a>
+            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
+                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-eletronicos.mp4"></video>
+                <div class="card-video-overlay"></div>
+                <div class="card-content">
+                    <div class="svc-name">Eletrônicos</div>
+                    <div class="svc-desc">Notebook, celular e mais 24h.</div>
+                    <div class="svc-link">Cotar →</div>
+                </div>
+            </a>
+            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
+                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-moto.mp4"></video>
+                <div class="card-video-overlay"></div>
+                <div class="card-content">
+                    <div class="svc-name">Seguro Moto</div>
+                    <div class="svc-desc">Cobertura para todos os perfis.</div>
+                    <div class="svc-link">Cotar →</div>
+                </div>
+            </a>
+            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
+                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-viagem.mp4"></video>
+                <div class="card-video-overlay"></div>
+                <div class="card-content">
+                    <div class="svc-name">Seguro Viagem</div>
+                    <div class="svc-desc">Assistência médica internacional.</div>
+                    <div class="svc-link">Cotar →</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════ BENEFITS -->
+<section class="section-dark" id="sobre">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Por que nos escolher</div>
+            <h2 class="section-h">A diferença que faz<br>toda a diferença</h2>
+            <p class="section-p">Mais de 15 anos protegendo famílias e empresas em Osasco e região com atendimento que vai além do esperado.</p>
+        </div>
+
+        <div class="ancord-block">
+            <div class="ancord-seal ancord-seal--logo">
+                <div class="ancord-logo">
+                    <span class="a">A</span><span class="rest">ncord</span>
+                </div>
+            </div>
+            <div class="ancord-copy">
+                <div class="ancord-eyebrow">Credencial reconhecida</div>
+                <h3 class="ancord-h">Somos certificados pela ANCORD</h3>
+                <p class="ancord-p">A Ancord é a entidade autorreguladora reconhecida pela CVM responsável pela certificação e credenciamento de profissionais do mercado financeiro no Brasil. Nossa habilitação no Exame de Qualificação Técnica para Assessor de Investimento garante que você é atendido por uma profissional aprovada nos mais altos padrões técnicos e éticos do setor.</p>
+                <div class="ancord-pills">
+                    <span class="ancord-pill">Aprovada com 75 pontos</span>
+                    <span class="ancord-pill">Reconhecida pela CVM</span>
+                    <span class="ancord-pill">Padrão técnico e ético</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ RENEW BANNER -->
+<div class="renew-banner">
+    <div class="renew-inner">
+        <div class="renew-content">
+            <h2>Vamos renovar o seu seguro auto?</h2>
+            <p>Não se preocupe com a renovação. Apresentamos as melhores ofertas do mercado com o preço mais justo para o seu perfil.</p>
+        </div>
+        <a href="#cotacao" class="btn-renew">
+            Renovar Agora
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════ PARTNERS -->
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-header center">
+            <div class="section-tag">Seguradoras Parceiras</div>
+            <h2 class="section-h">Trabalhamos com<br>as melhores do Brasil</h2>
+            <p class="section-p">Parcerias sólidas com as maiores e mais confiáveis seguradoras do mercado nacional.</p>
+        </div>
+
+        <div class="partners-marquee">
+            <div class="partners-track">
+                <!-- set 1 -->
+                <div class="partner-logo">
+                    <div class="lg-porto">
+                        <div class="stack"><span>PORTO</span><span>SEGURO</span></div>
+                        <svg class="sail" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 20 L26 20 L4 4 Z" fill="currentColor"/><path d="M14 20 L26 20 L14 8 Z" fill="#0078B0"/></svg>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-azul">
+                        <span class="word">Azul</span>
+                        <span class="sub">SEGUROS</span>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-tokio">
+                        <svg class="mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4 C24 6 28 12 26 20 C24 26 18 28 12 26 C6 24 4 18 6 12" stroke="#1F8B5C" stroke-width="3" stroke-linecap="round"/><path d="M10 14 C12 10 18 8 22 12" stroke="#C8A228" stroke-width="3" stroke-linecap="round"/></svg>
+                        <div>TOKIO MARINE<br>SEGURADORA</div>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-bradesco">
+                        <span class="word">bradesco</span>
+                        <span class="sub">seguros</span>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-sompo">
+                        <div class="ball"></div>
+                        <div class="stack"><span class="word">SOMPO</span><span class="sub">SEGUROS</span></div>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-allianz">
+                        <span class="word">Allianz</span>
+                        <span class="ring"><i></i><i></i><i></i></span>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-mapfre">
+                        <div class="icon"></div>
+                        <span class="word">MAPFRE</span>
+                        <span class="sub">SEGUROS</span>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-sulamerica">
+                        <div class="swoosh"></div>
+                        <span class="word">Sul<span class="am">América</span></span>
+                    </div>
+                </div>
+                <!-- set 2 (duplicate for seamless loop) -->
+                <div class="partner-logo">
+                    <div class="lg-porto">
+                        <div class="stack"><span>PORTO</span><span>SEGURO</span></div>
+                        <svg class="sail" viewBox="0 0 28 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 20 L26 20 L4 4 Z" fill="currentColor"/><path d="M14 20 L26 20 L14 8 Z" fill="#0078B0"/></svg>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-azul">
+                        <span class="word">Azul</span>
+                        <span class="sub">SEGUROS</span>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-tokio">
+                        <svg class="mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 4 C24 6 28 12 26 20 C24 26 18 28 12 26 C6 24 4 18 6 12" stroke="#1F8B5C" stroke-width="3" stroke-linecap="round"/><path d="M10 14 C12 10 18 8 22 12" stroke="#C8A228" stroke-width="3" stroke-linecap="round"/></svg>
+                        <div>TOKIO MARINE<br>SEGURADORA</div>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-bradesco">
+                        <span class="word">bradesco</span>
+                        <span class="sub">seguros</span>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-sompo">
+                        <div class="ball"></div>
+                        <div class="stack"><span class="word">SOMPO</span><span class="sub">SEGUROS</span></div>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-allianz">
+                        <span class="word">Allianz</span>
+                        <span class="ring"><i></i><i></i><i></i></span>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-mapfre">
+                        <div class="icon"></div>
+                        <span class="word">MAPFRE</span>
+                        <span class="sub">SEGUROS</span>
+                    </div>
+                </div>
+                <div class="partner-logo">
+                    <div class="lg-sulamerica">
+                        <div class="swoosh"></div>
+                        <span class="word">Sul<span class="am">América</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════ TESTIMONIALS -->
+<section class="section">
+    <div class="container">
+        <div class="section-header center">
+            <div class="section-tag">Depoimentos</div>
+            <h2 class="section-h">O que nossos clientes dizem</h2>
+            <p class="section-p">Mais de 5.000 famílias e empresas confiam na Godoi Broker há mais de 15 anos.</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Melhor corretora que já utilizei. Excelente atendimento, ótima estrutura e uma equipe maravilhosa que garante a segurança do segurado. Parabéns à toda a equipe!"</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">D</div>
+                    <div>
+                        <div class="testi-name">Daniel Vasconcelos</div>
+                        <div class="testi-role">Cliente desde 2020</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Atendimento impecável e preço justo. Conseguiram um seguro auto com cobertura completa por um valor muito menor do que eu havia encontrado em outros lugares. Super recomendo!"</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">M</div>
+                    <div>
+                        <div class="testi-name">Maria Fernanda</div>
+                        <div class="testi-role">Cliente desde 2021</div>
+                    </div>
+                </div>
+            </div>
+            <div class="testi-card">
+                <div class="testi-stars">★★★★★</div>
+                <p class="testi-text">"Quando precisei acionar o seguro fui surpreendido pela agilidade e suporte da equipe. Acompanharam todo o processo e resolveram tudo rapidamente. Profissionais exemplares!"</p>
+                <div class="testi-author">
+                    <div class="testi-avatar">R</div>
+                    <div>
+                        <div class="testi-name">Roberto Almeida</div>
+                        <div class="testi-role">Cliente desde 2019</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ CTA BOTTOM -->
+<div class="cta-section">
+    <div class="container">
+        <div class="section-tag" style="justify-content:center;margin-bottom:14px;">Pronto para começar?</div>
+        <h2 class="section-h">Sua proteção começa<br>com uma conversa</h2>
+        <p class="section-p">Fale com um de nossos consultores agora mesmo e encontre o seguro ideal para você.</p>
+        <div class="cta-btns">
+            <a href="#cotacao" class="btn-primary">Fazer Cotação Gratuita →</a>
+            <a href="https://wa.me/5511318417777" class="btn-outline" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════ FOOTER -->
+<footer>
+    <div class="footer-grid">
+
+        <div>
+            <div class="ftr-brand-name">Godoi Broker</div>
+            <div class="ftr-brand-sub">Corretora de Seguros</div>
+            <p class="ftr-desc">Há mais de 15 anos protegendo famílias e empresas com as melhores soluções em seguros do mercado brasileiro.</p>
+            <div class="ftr-contacts">
+                <a href="tel:1131841777">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.23h3a2 2 0 0 1 2 1.72c.127.96.36 1.902.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45c.908.34 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    11 3184-1777
+                </a>
+                <a href="tel:1136994354">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.23h3a2 2 0 0 1 2 1.72c.127.96.36 1.902.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.81-.81a2 2 0 0 1 2.11-.45c.908.34 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    11 3699-4354
+                </a>
+                <a href="https://wa.me/5511318417777" target="_blank" rel="noopener">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    11 3184-1777 (WhatsApp)
+                </a>
+                <a href="mailto:atendimento@godoibroker.com.br">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    atendimento@godoibroker.com.br
+                </a>
+            </div>
+        </div>
+
+        <div class="ftr-col">
+            <h4>Seguros</h4>
+            <ul>
+                <li><a href="#">Seguro Auto</a></li>
+                <li><a href="#">Seguro de Vida</a></li>
+                <li><a href="#">Planos de Saúde</a></li>
+                <li><a href="#">Seguro Residencial</a></li>
+                <li><a href="#">Seguro Empresarial</a></li>
+                <li><a href="#">Seguro Eletrônico</a></li>
+                <li><a href="#">Seguro Moto</a></li>
+                <li><a href="#">Seguro Viagem</a></li>
+            </ul>
+        </div>
+
+        <div class="ftr-col">
+            <h4>Consórcio</h4>
+            <ul>
+                <li><a href="#">Consórcio Auto</a></li>
+                <li><a href="#">Consórcio Imóvel</a></li>
+                <li><a href="#">Consórcio Moto</a></li>
+                <li><a href="#">Como funciona</a></li>
+            </ul>
+        </div>
+
+        <div class="ftr-col">
+            <h4>Empresa</h4>
+            <ul>
+                <li><a href="#">Sobre Nós</a></li>
+                <li><a href="#">Nossa Equipe</a></li>
+                <li><a href="#">Seguradoras Parceiras</a></li>
+                <li><a href="#">Blog de Seguros</a></li>
+                <li><a href="#">Contato</a></li>
+                <li><a href="#">Política de Privacidade</a></li>
+            </ul>
+            <br>
+            <h4>Localização</h4>
+            <ul>
+                <li><a href="#" style="line-height:1.6">Av. Dionísia Alves Barreto, 88<br>Vl. Osasco — CEP 06086-040<br>Osasco - SP</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="ftr-bottom">
+        <p>© 2025 Godoi Broker Corretora de Seguros · CNPJ: XX.XXX.XXX/0001-XX · Todos os direitos reservados.</p>
+        <div class="ftr-socials">
+            <a href="#" class="ftr-social" aria-label="Facebook">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="#" class="ftr-social" aria-label="Instagram">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="https://wa.me/5511318417777" class="ftr-social" aria-label="WhatsApp" target="_blank" rel="noopener">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Header shadow on scroll
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const target = document.querySelector(a.getAttribute('href'));
+            if (target) {
+                e.preventDefault();
+                const offset = 80;
+                const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                window.scrollTo({ top, behavior: 'smooth' });
+            }
+        });
+    });
+
+    // Form feedback
+    document.getElementById('quoteForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        btn.innerHTML = '✓ Solicitação enviada com sucesso!';
+        btn.style.background = '#4C8A38';
+        btn.style.boxShadow = '0 4px 16px rgba(76,138,56,.4)';
+        btn.disabled = true;
+        setTimeout(() => {
+            btn.innerHTML = 'Solicitar Cotação Gratuita <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
+            btn.style.background = '';
+            btn.style.boxShadow = '';
+            btn.disabled = false;
+        }, 4000);
+    });
+
+    // Intersection observer for fade-in
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.svc-card, .ben-card, .testi-card, .partner-pill').forEach((el, i) => {
+        el.classList.add('animate-in');
+        el.style.transitionDelay = `${i * 0.055}s`;
+        observer.observe(el);
+    });
+
+    // Rise-up headline reveal
+    const riseObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('rise-visible');
+                riseObserver.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.rise-h').forEach(el => riseObserver.observe(el));
+
+    // Hover-to-play video on featured service cards
+    document.querySelectorAll('.svc-card.has-video').forEach(card => {
+        const vid = card.querySelector('.card-video');
+        if (!vid) return;
+        card.addEventListener('mouseenter', () => { vid.currentTime = 0; vid.play().catch(() => {}); });
+        card.addEventListener('mouseleave', () => { vid.pause(); });
+    });
+</script>
+</div><!-- /content-card -->
+</body>
+</html>
