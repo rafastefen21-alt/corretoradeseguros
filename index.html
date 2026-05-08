@@ -292,35 +292,48 @@
             z-index: 1;
         }
 
-        /* ─── STAGE (form + person + stickers, layered) ────────────── */
+        /* ─── STAGE: proportional layering (form + person + stickers) ──
+           Everything inside scales with the stage size, so the model's
+           hand always lands at the right edge of the form regardless
+           of viewport. The stage has a fixed aspect-ratio; form,
+           person and stickers are positioned in % relative to it. */
         .hero-stage {
+            --form-w: 65%;       /* form width relative to stage      */
+            --png-left: -60%;    /* puts the model's hand at form edge */
+            --sticker: 16%;      /* sticker diameter relative to stage */
+
             position: relative;
-            min-height: 560px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 100%;
+            max-width: 600px;
+            aspect-ratio: 1.05 / 1;
+            margin: 0 auto;
+            isolation: isolate;
         }
         .hero-stage .quote-card {
-            position: relative;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: var(--form-w);
+            min-width: 280px;
             z-index: 2;
-            width: 100%;
-            max-width: 440px;
         }
         .hero-person {
             position: absolute;
-            top: -30px;
-            right: -90px;
-            width: 130%;
-            max-width: 760px;
-            height: auto;
+            top: 0;
+            left: var(--png-left);
+            height: 100%;
+            width: auto;
             z-index: 3;
             pointer-events: none;
             user-select: none;
         }
 
-        /* ─── STICKERS (floating circles around the form) ─────────── */
+        /* ─── STICKERS (floating circles, % positioned) ───────────── */
         .sticker {
             position: absolute;
+            width: var(--sticker);
+            aspect-ratio: 1 / 1;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -332,20 +345,20 @@
         .sticker::after {
             content: "";
             position: absolute;
-            right: -6px;
-            bottom: -2px;
-            width: 22px;
-            height: 22px;
+            right: -6%;
+            bottom: -2%;
+            width: 22%;
+            height: 22%;
             background: rgba(0,0,0,.10);
             border-radius: 0 0 50% 0;
             filter: blur(3px);
             z-index: -1;
         }
-        .s-plane  { width: 96px;  height: 96px; background: #6FB868; top: 12%;  left: -34px; transform: rotate(-8deg); z-index: 1; color: #5B2A82; }
-        .s-house  { width: 110px; height: 110px; background: #2BB7B7; top: -28px; left: 38%; transform: rotate(-4deg); z-index: 1; color: #5B2A82; }
-        .s-life   { width: 96px;  height: 96px; background: #F4DA7E; top: 32px;  right: -46px; transform: rotate(10deg); z-index: 4; color: #5B2A82; }
-        .s-paw    { width: 88px;  height: 88px; background: #B6BFEB; top: 55%;  left: -52px; transform: rotate(-12deg); z-index: 1; color: #5B2A82; }
-        .s-car    { width: 96px;  height: 96px; background: #34C56A; bottom: 18px; right: -52px; transform: rotate(8deg); z-index: 4; color: #5B2A82; }
+        .s-plane  { background: #6FB868; top: 14%;  left: 0%;   transform: rotate(-8deg);  z-index: 1; }
+        .s-house  { background: #2BB7B7; top: -2%;  left: 36%;  transform: rotate(-4deg);  z-index: 1; --sticker: 18%; }
+        .s-life   { background: #F4DA7E; top: 12%;  right: -3%; transform: rotate(10deg);  z-index: 4; }
+        .s-paw    { background: #B6BFEB; top: 56%;  left: -5%;  transform: rotate(-12deg); z-index: 1; --sticker: 14%; }
+        .s-car    { background: #34C56A; bottom: 6%; right: -5%; transform: rotate(8deg);  z-index: 4; }
 
         .hero-badge {
             display: inline-flex;
@@ -1288,13 +1301,12 @@
             .mobile-menu-btn { display: flex; }
             .hdr-phone { display: none; }
             .hero-inner { padding: 64px 20px; gap: 40px; }
-            .hero-stage { min-height: 540px; max-width: 440px; margin: 0 auto; }
-            .hero-person { right: -40px; width: 110%; max-width: 540px; top: -10px; }
-            .s-plane  { width: 70px;  height: 70px; left: -14px; }
-            .s-house  { width: 80px;  height: 80px; left: 36%; top: -20px; }
-            .s-life   { width: 70px;  height: 70px; right: -18px; }
-            .s-paw    { width: 64px;  height: 64px; left: -22px; }
-            .s-car    { width: 70px;  height: 70px; right: -22px; bottom: 12px; }
+            .hero-stage {
+                --form-w: 72%;
+                --png-left: -55%;
+                aspect-ratio: 1 / 1;
+                max-width: 480px;
+            }
             .hero-stats { gap: 28px; flex-wrap: wrap; }
             .services-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
             .services-grid .svc-card,
