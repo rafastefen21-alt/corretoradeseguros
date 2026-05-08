@@ -547,13 +547,54 @@
         .section-header.center .section-p { margin: 0 auto; }
 
         /* ─── SERVICES ───────────────────────────────────────────────────── */
+        /* ─── AUDIENCE TOGGLE (Para você / Para sua empresa) ─────────── */
+        .audience-toggle {
+            display: inline-flex;
+            background: #EFF2EC;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            padding: 5px;
+            position: relative;
+            margin-top: 22px;
+        }
+        .audience-toggle button {
+            background: transparent;
+            border: none;
+            padding: 10px 22px;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-medium);
+            border-radius: 100px;
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            font-family: 'Inter', sans-serif;
+            transition: color .35s cubic-bezier(.7,0,.2,1);
+            letter-spacing: -.1px;
+        }
+        .audience-toggle button.active { color: #fff; }
+        .audience-toggle .indicator {
+            position: absolute;
+            top: 5px;
+            bottom: 5px;
+            background: var(--green-primary);
+            border-radius: 100px;
+            box-shadow: 0 4px 14px rgba(42,78,26,.28);
+            transition: left .4s cubic-bezier(.7,0,.2,1), width .4s cubic-bezier(.7,0,.2,1);
+            z-index: 1;
+        }
+
         /* ─── SERVICES BENTO MOSAIC ─────────────────────────────────────── */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
             grid-auto-rows: 180px;
+            grid-auto-flow: dense;
             gap: 14px;
         }
+        /* hide cards that don't match the active audience */
+        .services-grid[data-audience="pf"] .svc-card[data-aud="pj"],
+        .services-grid[data-audience="pj"] .svc-card[data-aud="pf"] { display: none; }
 
         .svc-card {
             background: #fff;
@@ -1386,10 +1427,15 @@
                 <span class="rise-line"><span>cada fase da sua vida</span></span>
             </h2>
             <p class="section-p">Trabalhamos com as melhores seguradoras do mercado para garantir a proteção ideal para você e sua família.</p>
+            <div class="audience-toggle" id="audienceToggle" role="tablist" aria-label="Filtrar serviços">
+                <span class="indicator" aria-hidden="true"></span>
+                <button type="button" data-aud="pf" class="active" role="tab" aria-selected="true">Para você</button>
+                <button type="button" data-aud="pj" role="tab" aria-selected="false">Para sua empresa</button>
+            </div>
         </div>
 
-        <div class="services-grid">
-            <a href="#cotacao" class="svc-card featured-dark span-4-2 has-video">
+        <div class="services-grid" id="servicesGrid" data-audience="pf">
+            <a href="#cotacao" class="svc-card featured-dark span-4-2 has-video" data-aud="all">
                 <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-auto.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
@@ -1398,7 +1444,7 @@
                     <div class="svc-link">Cotar agora →</div>
                 </div>
             </a>
-            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
+            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video" data-aud="all">
                 <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-vida.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
@@ -1407,7 +1453,7 @@
                     <div class="svc-link">Cotar →</div>
                 </div>
             </a>
-            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
+            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video" data-aud="all">
                 <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-saude.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
@@ -1416,7 +1462,7 @@
                     <div class="svc-link">Cotar →</div>
                 </div>
             </a>
-            <a href="#cotacao" class="svc-card featured-gold span-3-2 has-video">
+            <a href="#cotacao" class="svc-card featured-gold span-3-2 has-video" data-aud="pf">
                 <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-residencial.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
@@ -1425,7 +1471,7 @@
                     <div class="svc-link">Cotar agora →</div>
                 </div>
             </a>
-            <a href="#cotacao" class="svc-card featured-video-sm span-3 has-video">
+            <a href="#cotacao" class="svc-card featured-video-sm span-3 has-video" data-aud="pj">
                 <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-empresarial.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
@@ -1434,7 +1480,7 @@
                     <div class="svc-link">Cotar agora →</div>
                 </div>
             </a>
-            <a href="#cotacao" class="svc-card featured-video-sm span-3 has-video">
+            <a href="#cotacao" class="svc-card featured-video-sm span-3 has-video" data-aud="all">
                 <video class="card-video" muted loop playsinline preload="auto" src="assets/consorcio.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
@@ -1443,7 +1489,7 @@
                     <div class="svc-link">Saiba mais →</div>
                 </div>
             </a>
-            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
+            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video" data-aud="all">
                 <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-eletronicos.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
@@ -1452,7 +1498,7 @@
                     <div class="svc-link">Cotar →</div>
                 </div>
             </a>
-            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
+            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video" data-aud="pf">
                 <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-moto.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
@@ -1461,7 +1507,7 @@
                     <div class="svc-link">Cotar →</div>
                 </div>
             </a>
-            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
+            <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video" data-aud="all">
                 <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-viagem.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
@@ -1833,6 +1879,61 @@
         card.addEventListener('mouseenter', () => { vid.currentTime = 0; vid.play().catch(() => {}); });
         card.addEventListener('mouseleave', () => { vid.pause(); });
     });
+
+    // Audience toggle (Para você / Para sua empresa) with FLIP reorganization
+    (function() {
+        const toggle = document.getElementById('audienceToggle');
+        const grid   = document.getElementById('servicesGrid');
+        if (!toggle || !grid) return;
+
+        const indicator = toggle.querySelector('.indicator');
+        const buttons   = toggle.querySelectorAll('button');
+
+        const moveIndicator = (btn) => {
+            indicator.style.left  = btn.offsetLeft + 'px';
+            indicator.style.width = btn.offsetWidth + 'px';
+        };
+
+        // initial position
+        const active = toggle.querySelector('button.active');
+        requestAnimationFrame(() => moveIndicator(active));
+        window.addEventListener('resize', () => moveIndicator(toggle.querySelector('button.active')));
+
+        const flip = (apply) => {
+            const cards = Array.from(grid.querySelectorAll('.svc-card'));
+            const before = new Map();
+            cards.forEach(c => before.set(c, c.getBoundingClientRect()));
+
+            apply();
+
+            cards.forEach(c => {
+                const after = c.getBoundingClientRect();
+                const pre = before.get(c);
+                if (!pre) return;
+                const dx = pre.left - after.left;
+                const dy = pre.top  - after.top;
+                if (dx === 0 && dy === 0) return;
+                c.animate(
+                    [{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'translate(0,0)' }],
+                    { duration: 520, easing: 'cubic-bezier(.7,0,.2,1)' }
+                );
+            });
+        };
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.classList.contains('active')) return;
+                flip(() => {
+                    buttons.forEach(b => {
+                        b.classList.toggle('active', b === btn);
+                        b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+                    });
+                    grid.dataset.audience = btn.dataset.aud;
+                    moveIndicator(btn);
+                });
+            });
+        });
+    })();
 </script>
 </div><!-- /content-card -->
 </body>
