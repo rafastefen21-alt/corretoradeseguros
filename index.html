@@ -630,10 +630,10 @@
 
         /* gold-tinted video card overlay (preserves the gold base) */
         .svc-card.featured-gold.has-video .card-video-overlay {
-            background: linear-gradient(140deg, rgba(250,241,210,.92) 0%, rgba(243,224,153,.85) 100%);
+            background: linear-gradient(140deg, rgba(250,241,210,.95) 0%, rgba(243,224,153,.95) 100%);
         }
         .svc-card.featured-gold.has-video:hover .card-video-overlay {
-            background: linear-gradient(140deg, rgba(250,241,210,.30) 0%, rgba(120,90,15,.45) 100%);
+            background: linear-gradient(140deg, rgba(250,241,210,.30) 0%, rgba(120,90,15,.40) 100%);
         }
         .svc-card.featured-gold.has-video:hover .svc-name,
         .svc-card.featured-gold.has-video:hover .svc-desc { color: #fff; }
@@ -653,24 +653,22 @@
         .svc-card.featured-video-sm .svc-link { color: var(--gold-light); }
         .svc-card.featured-video-sm:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(28,54,18,.30); }
 
-        /* video on hover */
+        /* video always visible (1st frame), overlay heavy at rest, lighter on hover */
         .svc-card.has-video .card-video {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0;
-            transition: opacity .5s ease;
+            opacity: 1;
             z-index: 0;
             pointer-events: none;
         }
         .svc-card.has-video .card-video-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(135deg, rgba(28,54,18,.92) 0%, rgba(42,78,26,.78) 60%, rgba(42,78,26,.55) 100%);
-            opacity: 1;
-            transition: opacity .5s ease;
+            background: linear-gradient(135deg, rgba(28,54,18,.95) 0%, rgba(42,78,26,.95) 100%);
+            transition: background .5s ease;
             z-index: 1;
             pointer-events: none;
         }
@@ -682,9 +680,8 @@
             gap: 12px;
             height: 100%;
         }
-        .svc-card.has-video:hover .card-video { opacity: 1; }
         .svc-card.has-video:hover .card-video-overlay {
-            background: linear-gradient(135deg, rgba(28,54,18,.78) 0%, rgba(42,78,26,.55) 60%, rgba(42,78,26,.30) 100%);
+            background: linear-gradient(135deg, rgba(28,54,18,.55) 0%, rgba(42,78,26,.30) 60%, rgba(42,78,26,.15) 100%);
         }
 
         /* ─── FEATURED (gold tint card) ───────────────────────────────── */
@@ -1393,7 +1390,7 @@
 
         <div class="services-grid">
             <a href="#cotacao" class="svc-card featured-dark span-4-2 has-video">
-                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-auto.mp4"></video>
+                <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-auto.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
                     <div class="svc-name">Seguro Auto<br>com proteção 360°</div>
@@ -1402,7 +1399,7 @@
                 </div>
             </a>
             <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
-                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-vida.mp4"></video>
+                <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-vida.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
                     <div class="svc-name">Seguro de Vida</div>
@@ -1411,7 +1408,7 @@
                 </div>
             </a>
             <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
-                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-saude.mp4"></video>
+                <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-saude.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
                     <div class="svc-name">Planos de Saúde</div>
@@ -1420,7 +1417,7 @@
                 </div>
             </a>
             <a href="#cotacao" class="svc-card featured-gold span-3-2 has-video">
-                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-residencial.mp4"></video>
+                <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-residencial.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
                     <div class="svc-name">Seguro Residencial completo</div>
@@ -1429,7 +1426,7 @@
                 </div>
             </a>
             <a href="#cotacao" class="svc-card featured-video-sm span-3 has-video">
-                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-empresarial.mp4"></video>
+                <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-empresarial.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
                     <div class="svc-name">Seguro Empresarial</div>
@@ -1438,7 +1435,7 @@
                 </div>
             </a>
             <a href="#cotacao" class="svc-card featured-video-sm span-3 has-video">
-                <video class="card-video" muted loop playsinline preload="metadata" src="assets/consorcio.mp4"></video>
+                <video class="card-video" muted loop playsinline preload="auto" src="assets/consorcio.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
                     <div class="svc-name">Consórcio</div>
@@ -1447,7 +1444,7 @@
                 </div>
             </a>
             <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
-                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-eletronicos.mp4"></video>
+                <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-eletronicos.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
                     <div class="svc-name">Eletrônicos</div>
@@ -1456,7 +1453,7 @@
                 </div>
             </a>
             <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
-                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-moto.mp4"></video>
+                <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-moto.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
                     <div class="svc-name">Seguro Moto</div>
@@ -1465,7 +1462,7 @@
                 </div>
             </a>
             <a href="#cotacao" class="svc-card featured-video-sm span-2 has-video">
-                <video class="card-video" muted loop playsinline preload="metadata" src="assets/seguro-viagem.mp4"></video>
+                <video class="card-video" muted loop playsinline preload="auto" src="assets/seguro-viagem.mp4"></video>
                 <div class="card-video-overlay"></div>
                 <div class="card-content">
                     <div class="svc-name">Seguro Viagem</div>
