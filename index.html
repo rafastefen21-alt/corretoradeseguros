@@ -268,45 +268,21 @@
             transition: all .3s;
         }
 
-        /* ─── HERO ────────────────────────────────────────────────────────── */
+        /* ─── HERO (opaque paper-textured bg, hides global video) ──────── */
         .hero {
-            background: transparent;
+            background: #FAFBF7;
+            background-image:
+                radial-gradient(ellipse at 20% 30%, rgba(220, 230, 200, .35), transparent 55%),
+                radial-gradient(ellipse at 80% 70%, rgba(243, 235, 200, .30), transparent 55%),
+                url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.85  0 0 0 0 0.85  0 0 0 0 0.80  0 0 0 0.18 0'/></filter><rect width='420' height='420' filter='url(%23n)'/></svg>");
+            background-size: auto, auto, 420px 420px;
+            background-blend-mode: normal, normal, multiply;
             min-height: calc(100vh - 72px);
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
-            z-index: 1;
-        }
-
-        .hero-orb1 {
-            position: absolute;
-            top: -15%;
-            right: 5%;
-            width: 520px;
-            height: 520px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(200,162,40,.18) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .hero-orb2 {
-            position: absolute;
-            bottom: -20%;
-            left: 0%;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,.04) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .hero-grid-lines {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-            background-size: 60px 60px;
-            pointer-events: none;
+            z-index: 5;
         }
 
         .hero-inner {
@@ -314,13 +290,68 @@
             margin: 0 auto;
             padding: 88px 32px;
             display: grid;
-            grid-template-columns: 1fr 440px;
+            grid-template-columns: 1.05fr 1fr;
             gap: 72px;
             align-items: center;
             width: 100%;
             position: relative;
             z-index: 1;
         }
+
+        /* ─── STAGE (form + person + stickers, layered) ────────────── */
+        .hero-stage {
+            position: relative;
+            min-height: 560px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero-stage .quote-card {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 440px;
+        }
+        .hero-person {
+            position: absolute;
+            top: -30px;
+            right: -90px;
+            width: 130%;
+            max-width: 760px;
+            height: auto;
+            z-index: 3;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* ─── STICKERS (floating circles around the form) ─────────── */
+        .sticker {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 24px rgba(0,0,0,.10), inset 0 0 0 1px rgba(255,255,255,.4);
+            color: #5B2A82;
+        }
+        .sticker svg { width: 60%; height: 60%; }
+        .sticker::after {
+            content: "";
+            position: absolute;
+            right: -6px;
+            bottom: -2px;
+            width: 22px;
+            height: 22px;
+            background: rgba(0,0,0,.10);
+            border-radius: 0 0 50% 0;
+            filter: blur(3px);
+            z-index: -1;
+        }
+        .s-plane  { width: 96px;  height: 96px; background: #6FB868; top: 12%;  left: -34px; transform: rotate(-8deg); z-index: 1; color: #5B2A82; }
+        .s-house  { width: 110px; height: 110px; background: #2BB7B7; top: -28px; left: 38%; transform: rotate(-4deg); z-index: 1; color: #5B2A82; }
+        .s-life   { width: 96px;  height: 96px; background: #F4DA7E; top: 32px;  right: -46px; transform: rotate(10deg); z-index: 4; color: #5B2A82; }
+        .s-paw    { width: 88px;  height: 88px; background: #B6BFEB; top: 55%;  left: -52px; transform: rotate(-12deg); z-index: 1; color: #5B2A82; }
+        .s-car    { width: 96px;  height: 96px; background: #34C56A; bottom: 18px; right: -52px; transform: rotate(8deg); z-index: 4; color: #5B2A82; }
 
         .hero-badge {
             display: inline-flex;
@@ -1263,6 +1294,13 @@
             .mobile-menu-btn { display: flex; }
             .hdr-phone { display: none; }
             .hero-inner { padding: 64px 20px; gap: 40px; }
+            .hero-stage { min-height: 540px; max-width: 440px; margin: 0 auto; }
+            .hero-person { right: -40px; width: 110%; max-width: 540px; top: -10px; }
+            .s-plane  { width: 70px;  height: 70px; left: -14px; }
+            .s-house  { width: 80px;  height: 80px; left: 36%; top: -20px; }
+            .s-life   { width: 70px;  height: 70px; right: -18px; }
+            .s-paw    { width: 64px;  height: 64px; left: -22px; }
+            .s-car    { width: 70px;  height: 70px; right: -22px; bottom: 12px; }
             .hero-stats { gap: 28px; flex-wrap: wrap; }
             .services-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
             .services-grid .svc-card,
@@ -1326,14 +1364,10 @@
 
 <!-- ═══════════════════════════════════════════════════════════════════ HERO -->
 <section class="hero" id="inicio">
-    <div class="hero-orb1"></div>
-    <div class="hero-orb2"></div>
-    <div class="hero-grid-lines"></div>
-
     <div class="hero-inner">
 
         <!-- Copy -->
-        <div>
+        <div class="hero-copy">
             <div class="hero-badge">Melhor custo-benefício em seguros</div>
             <h1 class="hero-title">
                 Proteja o que é<br>
@@ -1347,8 +1381,27 @@
             </p>
         </div>
 
-        <!-- Quote Form -->
-        <div class="quote-card" id="cotacao">
+        <!-- Stage: form + person + floating stickers -->
+        <div class="hero-stage">
+            <span class="sticker s-plane" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1L15 22v-1.5L13 19v-5.5l8 2.5z"/></svg>
+            </span>
+            <span class="sticker s-house" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H10v7H4a1 1 0 0 1-1-1V11z"/></svg>
+            </span>
+            <span class="sticker s-paw" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="9" r="2"/><circle cx="10" cy="5" r="2"/><circle cx="14" cy="5" r="2"/><circle cx="18" cy="9" r="2"/><path d="M12 11c-3 0-6 3-6 6 0 1.7 1.3 3 3 3 1 0 2-.5 3-.5s2 .5 3 .5c1.7 0 3-1.3 3-3 0-3-3-6-6-6z"/></svg>
+            </span>
+            <span class="sticker s-life" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3v5.5M12 15.5V21M3 12h5.5M15.5 12H21" stroke-linecap="round"/></svg>
+            </span>
+            <span class="sticker s-car" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14l1.5-4.5A2 2 0 0 1 8.4 8h7.2a2 2 0 0 1 1.9 1.5L19 14M5 14h14M5 14v3a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1M19 14v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1"/><circle cx="8" cy="14" r="1.2" fill="currentColor"/><circle cx="16" cy="14" r="1.2" fill="currentColor"/><path d="M20 6l.5 1.5L22 8l-1.5.5L20 10l-.5-1.5L18 8l1.5-.5L20 6z" fill="currentColor" stroke="none"/></svg>
+            </span>
+            <img class="hero-person" src="assets/hero-pessoa.png" alt="" aria-hidden="true">
+
+            <!-- Quote Form -->
+            <div class="quote-card" id="cotacao">
             <h3>Faça sua Cotação</h3>
             <p class="sub">Obtenha o <strong>melhor custo-benefício</strong> gratuitamente</p>
 
@@ -1390,6 +1443,7 @@
 
             <p class="form-disclaimer">Seus dados estão protegidos · Política de Privacidade</p>
         </div>
+        </div><!-- /hero-stage -->
 
     </div>
 </section>
