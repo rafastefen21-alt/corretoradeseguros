@@ -303,20 +303,21 @@
         }
         .hero-copy .hero-badge { margin-bottom: 18px; }
 
+        /* Family photo as ambient background — does NOT interact with form */
         .hero-stage {
             position: absolute;
-            left: 51%;
-            top: 10%;
-            width: 20%;
-            height: 90%;
-            z-index: 1;            /* behind form */
+            left: 38%;
+            top: 0;
+            width: 62%;
+            height: 100%;
+            z-index: 1;
             overflow: hidden;
         }
-        .hero-person {
+        .hero-family {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: 66% center;
+            object-position: 70% center;
             pointer-events: none;
             user-select: none;
         }
@@ -327,7 +328,7 @@
             top: 18.2%;
             width: 27.6%;
             height: 59.1%;
-            z-index: 2;           /* above person */
+            z-index: 3;
         }
         .hero-form .quote-card {
             width: 100%;
@@ -335,6 +336,24 @@
             box-sizing: border-box;
             overflow: hidden;
         }
+
+        /* ─── HERO STICKERS (decorative circles overlapping the form) ── */
+        .hero-sticker {
+            position: absolute;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 12px 28px rgba(0,0,0,.18), inset 0 0 0 1px rgba(255,255,255,.4);
+            color: #5B2A82;
+            z-index: 4;
+            pointer-events: none;
+        }
+        .hero-sticker svg { width: 55%; height: 55%; }
+        .hero-sticker.s-house { left: 71%;  top: 12%;  width: 5.5vw; height: 5.5vw; background: #2BB7B7; transform: rotate(-4deg); }
+        .hero-sticker.s-life  { left: 91%;  top: 14%;  width: 5vw;   height: 5vw;   background: #F4DA7E; transform: rotate(10deg); }
+        .hero-sticker.s-paw   { left: 64%;  top: 52%;  width: 4.5vw; height: 4.5vw; background: #B6BFEB; transform: rotate(-12deg); }
+        .hero-sticker.s-car   { left: 93%;  top: 73%;  width: 5vw;   height: 5vw;   background: #34C56A; transform: rotate(8deg); }
 
         /* ─── STICKERS (floating circles, % positioned) ───────────── */
         .sticker {
@@ -1309,9 +1328,10 @@
             .hero-stage,
             .hero-form { position: static; width: 100%; left: auto; top: auto; height: auto; transform: none; }
             .hero-copy { max-width: 640px; margin: 0 auto; text-align: center; }
-            .hero-stage { height: 320px; max-width: 360px; margin: 0 auto; }
-            .hero-person { left: 50%; transform: translateX(-66%); }
+            .hero-stage { height: 300px; max-width: 520px; margin: 0 auto; }
+            .hero-family { object-position: center center; }
             .hero-form { max-width: 480px; margin: 0 auto; }
+            .hero-sticker { display: none; }
             .benefits-grid { grid-template-columns: repeat(2, 1fr); }
             .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
             .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -1403,10 +1423,24 @@
             </p>
         </div>
 
-        <!-- Person zone: X 45% → 67% -->
+        <!-- Family photo (ambient background, does not interact with form) -->
         <div class="hero-stage">
-            <img class="hero-person" src="assets/hero-pessoa.png" alt="" aria-hidden="true">
+            <img class="hero-family" src="assets/hero-familia.png" alt="" aria-hidden="true">
         </div>
+
+        <!-- Decorative stickers around the form -->
+        <span class="hero-sticker s-house" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H10v7H4a1 1 0 0 1-1-1V11z"/></svg>
+        </span>
+        <span class="hero-sticker s-life" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3v5.5M12 15.5V21M3 12h5.5M15.5 12H21" stroke-linecap="round"/></svg>
+        </span>
+        <span class="hero-sticker s-paw" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="9" r="2"/><circle cx="10" cy="5" r="2"/><circle cx="14" cy="5" r="2"/><circle cx="18" cy="9" r="2"/><path d="M12 11c-3 0-6 3-6 6 0 1.7 1.3 3 3 3 1 0 2-.5 3-.5s2 .5 3 .5c1.7 0 3-1.3 3-3 0-3-3-6-6-6z"/></svg>
+        </span>
+        <span class="hero-sticker s-car" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14l1.5-4.5A2 2 0 0 1 8.4 8h7.2a2 2 0 0 1 1.9 1.5L19 14M5 14h14M5 14v3a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1M19 14v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1"/><circle cx="8" cy="14" r="1.2" fill="currentColor"/><circle cx="16" cy="14" r="1.2" fill="currentColor"/><path d="M20 6l.5 1.5L22 8l-1.5.5L20 10l-.5-1.5L18 8l1.5-.5L20 6z" fill="currentColor" stroke="none"/></svg>
+        </span>
 
         <!-- Form zone: X 67.3% → 94.9%, Y 18.2%, H 59.1% -->
         <div class="hero-form">
