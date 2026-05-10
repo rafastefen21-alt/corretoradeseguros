@@ -70,6 +70,41 @@
         .ftr-contacts a:hover { color: var(--gold); }
         @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .sections-grid { grid-template-columns: 1fr; } }
         @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .content-wrap { padding: 48px 20px; } .header-inner { padding: 0 20px; } nav.main-nav { display: none; } }
+
+        /* ── Animated heart icon ── */
+        @keyframes heartbeat {
+            0%,100% { transform: scale(1); }
+            12%     { transform: scale(1.22); }
+            24%     { transform: scale(1); }
+            36%     { transform: scale(1.16); }
+            60%     { transform: scale(1); }
+        }
+        @keyframes pulse-ring {
+            0%   { transform: scale(.85); opacity: .5; }
+            70%  { transform: scale(1.55); opacity: 0; }
+            100% { transform: scale(1.55); opacity: 0; }
+        }
+        .heart-wrap {
+            position: relative;
+            width: 48px; height: 48px;
+            border-radius: var(--radius-md);
+            background: rgba(76,138,56,.12);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 18px;
+            overflow: visible;
+        }
+        .heart-wrap::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-md);
+            background: rgba(76,138,56,.18);
+            animation: pulse-ring 1.8s ease-out infinite;
+        }
+        .heart-svg {
+            animation: heartbeat 1.8s ease-in-out infinite;
+            transform-origin: center;
+        }
 </style>
 </head>
 <body>
@@ -133,7 +168,12 @@
 <div class="content-wrap">
     <div class="sections-grid">
         <div class="info-card">
-            <div class="info-card-icon green">Vida</div>
+            <div class="heart-wrap">
+                <svg class="heart-svg" width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 21.5S2 14.8 2 8a5.5 5.5 0 0 1 11-0.5A5.5 5.5 0 0 1 24 8c0 6.8-11 13.5-11 13.5z"
+                          fill="rgba(44,110,60,.15)" stroke="#2d6a4f" stroke-width="1.8" stroke-linejoin="round"/>
+                </svg>
+            </div>
             <h2>Principais Coberturas</h2>
             <ul>
                 <li>Morte natural e acidental</li>
