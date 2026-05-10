@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trabalhe Conosco — Godoi Broker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --green-dark:#1a3a2a; --green-primary:#2d6a4f; --green-medium:#40916c;
+        --green-light:#52b788; --gold:#c8a228; --gold-light:#e9c46a;
+        --text-dark:#1a2e1a; --text-medium:#3d5a3e; --border:#e2ead9;
+        --shadow-md:0 4px 16px rgba(0,0,0,.08);
+        --radius-sm:8px; --radius-md:12px; --radius-lg:18px;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: 'Inter', system-ui, sans-serif; color: var(--text-dark); background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+      .header { position: sticky; top: 0; z-index: 100; background: var(--green-dark); border-bottom: 1px solid rgba(255,255,255,.08); box-shadow: 0 4px 24px rgba(0,0,0,.2); }
+      .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 32px; height: 72px; display: flex; align-items: center; gap: 32px; }
+      .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+      .logo-img { height: 56px; width: auto; display: block; }
+      nav.main-nav { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
+      nav.main-nav > a, nav.main-nav .nav-item > a { font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,.85); text-decoration: none; padding: 7px 13px; border-radius: var(--radius-sm); transition: color .2s, background .2s; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+      nav.main-nav > a:hover, nav.main-nav .nav-item > a:hover { color: #fff; background: rgba(255,255,255,.1); }
+      .nav-item { position: relative; }
+      .nav-item > a .caret { width: 10px; height: 10px; opacity: .7; transition: transform .2s; }
+      .nav-item:hover > a .caret { transform: rotate(180deg); }
+      .nav-dropdown { position: absolute; top: calc(100% + 6px); left: 0; background: var(--green-dark); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-md); padding: 6px 0; min-width: 230px; box-shadow: 0 16px 48px rgba(0,0,0,.35); opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .18s, transform .18s, visibility .18s; z-index: 200; }
+      .nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+      .nav-dropdown a { display: block; font-size: 13px; font-weight: 500; color: rgba(255,255,255,.8); padding: 9px 18px; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; }
+      .nav-dropdown a:hover { background: rgba(255,255,255,.1); color: #fff; }
+      .header-right { display: flex; align-items: center; gap: 14px; margin-left: auto; }
+      .btn-cta { background: var(--gold); color: var(--green-dark); font-weight: 700; font-size: 14px; padding: 10px 22px; border-radius: var(--radius-sm); text-decoration: none; white-space: nowrap; transition: background .2s, transform .2s; }
+      .btn-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+      .page-hero { background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 60%, var(--green-medium) 100%); padding: 72px 32px 80px; text-align: center; position: relative; overflow: hidden; }
+      .page-hero::before { content: ''; position: absolute; inset: 0; background: url("assets/hero-bg.png") center/cover no-repeat; opacity: .06; }
+      .page-hero-tag { display: inline-block; background: rgba(200,162,40,.2); color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 99px; border: 1px solid rgba(200,162,40,.3); margin-bottom: 18px; }
+      .page-hero h1 { font-size: clamp(32px, 4vw, 54px); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 18px; position: relative; }
+      .page-hero p { font-size: 18px; color: rgba(255,255,255,.75); max-width: 640px; margin: 0 auto 32px; position: relative; }
+      .page-hero .btn-hero { background: var(--gold); color: var(--green-dark); font-weight: 700; font-size: 15px; padding: 14px 32px; border-radius: var(--radius-sm); text-decoration: none; display: inline-block; transition: background .2s, transform .2s; position: relative; }
+      .page-hero .btn-hero:hover { background: var(--gold-light); transform: translateY(-2px); }
+      .content-wrap { max-width: 900px; margin: 0 auto; padding: 80px 32px; }
+      .sections-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+      .info-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-md); }
+      .info-card.full { grid-column: 1 / -1; }
+      .info-card-icon { width: 48px; height: 48px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; font-size: 22px; }
+      .info-card-icon.green { background: rgba(76,138,56,.12); }
+      .info-card-icon.gold  { background: rgba(200,162,40,.12); }
+      .info-card-icon.blue  { background: rgba(59,130,246,.1); }
+      .info-card h2 { font-size: 20px; font-weight: 800; color: var(--green-dark); margin-bottom: 14px; }
+      .info-card p { font-size: 15px; color: var(--text-medium); line-height: 1.7; margin-bottom: 12px; }
+      .info-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+      .info-card ul li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: var(--text-medium); line-height: 1.55; }
+      .info-card ul li::before { content: "✓"; width: 20px; height: 20px; min-width: 20px; background: var(--green-light); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; margin-top: 1px; }
+      .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 24px; }
+      .contact-item { display: flex; align-items: center; gap: 14px; background: var(--border); border-radius: var(--radius-md); padding: 20px; }
+      .contact-item-icon { width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--green-dark); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+      .contact-item-label { font-size: 11px; font-weight: 700; color: var(--text-medium); text-transform: uppercase; letter-spacing: 1px; }
+      .contact-item-value { font-size: 15px; font-weight: 600; color: var(--green-dark); }
+      .footer { background: var(--green-dark); padding: 60px 32px 32px; }
+      .footer-inner { max-width: 1280px; margin: 0 auto; }
+      .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+      .footer-col h4 { font-size: 13px; font-weight: 700; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 16px; }
+      .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+      .footer-col ul li a { font-size: 13.5px; color: rgba(255,255,255,.65); text-decoration: none; transition: color .2s; }
+      .footer-col ul li a:hover { color: var(--gold); }
+      .ftr-bottom { border-top: 1px solid rgba(255,255,255,.08); padding-top: 24px; }
+      .ftr-bottom p { font-size: 12px; color: rgba(255,255,255,.35); }
+      @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .sections-grid { grid-template-columns: 1fr; } }
+      @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .content-wrap { padding: 48px 20px; } .header-inner { padding: 0 20px; } nav.main-nav { display: none; } }
+    </style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo"><img class="logo-img" src="assets/logo.png" alt="Godoi Broker"></a>
+                <nav class="main-nav">
+            <div class="nav-item">
+                <a href="index.html#servicos">Para Você <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+                <div class="nav-dropdown">
+                    <a href="seguro-auto.html">Seguro Auto</a>
+                    <a href="seguro-vida.html">Seguro de Vida</a>
+                    <a href="seguro-saude.html">Planos de Saúde</a>
+                    <a href="seguro-residencial.html">Seguro Residencial</a>
+                    <a href="seguro-moto.html">Seguro Moto</a>
+                    <a href="seguro-viagem.html">Seguro Viagem</a>
+                    <a href="seguro-eletronicos.html">Seguro Eletrônicos</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="index.html#servicos">Para Empresa <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+                <div class="nav-dropdown">
+                    <a href="seguro-empresarial.html">Seguro Empresarial</a>
+                    <a href="seguro-do.html">Directores &amp; Officers (D&amp;O)</a>
+                    <a href="seguro-rc-profissional.html">RC Profissional</a>
+                    <a href="seguro-transportes.html">Transportes e Cargas</a>
+                    <a href="seguro-garantia.html">Seguro Garantia</a>
+                    <a href="seguro-riscos-engenharia.html">Riscos de Engenharia</a>
+                    <a href="seguro-responsabilidade-civil.html">Responsabilidade Civil</a>
+                    <a href="seguro-condominio.html">Seguro Condomínio</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="consorcio-auto.html">Consórcio <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+                <div class="nav-dropdown">
+                    <a href="consorcio-auto.html">Consórcio Auto</a>
+                    <a href="consorcio-imovel.html">Consórcio Imobiliário</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="institucional-empresa.html">Institucional <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+                <div class="nav-dropdown">
+                    <a href="institucional-empresa.html">A Empresa</a>
+                    <a href="institucional-cancelamento.html">Política de Cancelamento</a>
+                    <a href="institucional-contato.html">Contato</a>
+                    <a href="institucional-responsabilidade-social.html">Responsabilidade Social</a>
+                    <a href="institucional-trabalhe-conosco.html">Trabalhe Conosco</a>
+                </div>
+            </div>
+        </nav>
+    <div class="header-right"><a href="index.html#cotacao" class="btn-cta">Cote Grátis →</a></div>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-tag">Institucional</div>
+  <h1>Trabalhe Conosco</h1>
+  <p>Faça parte do time Godoi Broker e ajude a transformar o mercado de seguros.</p>
+</section>
+
+<div class="content-wrap">
+
+  <div class="sections-grid">
+    <div class="info-card full">
+      <div class="info-card-icon gold">🚀</div>
+      <h2>Por que trabalhar na Godoi Broker?</h2>
+      <p>Somos uma corretora em crescimento, com cultura colaborativa, ambiente desafiador e foco no desenvolvimento de pessoas. Aqui você encontrará espaço para crescer profissionalmente enquanto impacta positivamente a vida dos nossos clientes.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon green">🎯</div>
+      <h2>O que Oferecemos</h2>
+      <ul>
+        <li>Remuneração competitiva e comissionamento atrativo</li>
+        <li>Treinamentos e capacitações contínuas</li>
+        <li>Ambiente flexível com foco em resultados</li>
+        <li>Plano de carreira estruturado</li>
+        <li>Cultura de feedbacks e meritocracia</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon blue">👤</div>
+      <h2>Perfil que Buscamos</h2>
+      <ul>
+        <li>Proatividade e orientação a resultados</li>
+        <li>Boa comunicação e habilidades interpessoais</li>
+        <li>Vontade de aprender e se desenvolver</li>
+        <li>Comprometimento com o cliente</li>
+        <li>Experiência em seguros é diferencial (não obrigatório)</li>
+      </ul>
+    </div>
+    <div class="info-card full">
+      <div class="info-card-icon gold">📩</div>
+      <h2>Envie seu Currículo</h2>
+      <p>Interessado em fazer parte do nosso time? Envie seu currículo para <strong>rh@godoibroker.com.br</strong> com o título <em>"Candidatura Espontânea"</em> ou o nome da vaga de interesse.</p>
+      <p style="margin-top:12px;">Retornamos todas as candidaturas — sua oportunidade começa com um e-mail!</p>
+    </div>
+  </div>
+
+</div>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <img src="assets/logo.png" alt="Godoi Broker" style="height:48px;margin-bottom:16px;">
+            <p style="font-size:13px;color:rgba(255,255,255,.5);line-height:1.7;">Proteção que transforma vidas. Soluções de seguros personalizadas para você e sua empresa.</p>
+          </div>
+          <div class="footer-col">
+            <h4>Para Você</h4>
+            <ul>
+              <li><a href="seguro-auto.html">Seguro Auto</a></li>
+              <li><a href="seguro-vida.html">Seguro de Vida</a></li>
+              <li><a href="seguro-saude.html">Planos de Saúde</a></li>
+              <li><a href="seguro-residencial.html">Seguro Residencial</a></li>
+              <li><a href="seguro-moto.html">Seguro Moto</a></li>
+              <li><a href="seguro-viagem.html">Seguro Viagem</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Para Empresa</h4>
+            <ul>
+              <li><a href="seguro-empresarial.html">Seguro Empresarial</a></li>
+              <li><a href="seguro-do.html">D&amp;O</a></li>
+              <li><a href="seguro-rc-profissional.html">RC Profissional</a></li>
+              <li><a href="seguro-transportes.html">Transportes</a></li>
+              <li><a href="seguro-garantia.html">Seguro Garantia</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Institucional</h4>
+            <ul>
+              <li><a href="institucional-empresa.html">A Empresa</a></li>
+              <li><a href="institucional-contato.html">Contato</a></li>
+              <li><a href="institucional-cancelamento.html">Política de Cancelamento</a></li>
+              <li><a href="institucional-responsabilidade-social.html">Responsabilidade Social</a></li>
+              <li><a href="institucional-trabalhe-conosco.html">Trabalhe Conosco</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="ftr-bottom"><p>© 2025 Godoi Broker Corretora de Seguros. Todos os direitos reservados.</p></div>
+      </div>
+    </footer>
+</body>
+</html>
