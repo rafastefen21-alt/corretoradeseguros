@@ -298,21 +298,21 @@
            of viewport. The stage has a fixed aspect-ratio; form,
            person and stickers are positioned in % relative to it. */
         .hero-stage {
-            --form-w: 65%;       /* form width relative to stage      */
-            --png-left: -60%;    /* puts the model's hand at form edge */
-            --sticker: 16%;      /* sticker diameter relative to stage */
+            --form-w: 50%;       /* form width relative to stage         */
+            --png-left: -130%;   /* anchors body so hand touches form's left edge */
+            --sticker: 15%;      /* sticker diameter relative to stage   */
 
             position: relative;
             width: 100%;
             max-width: 600px;
-            aspect-ratio: 1.05 / 1;
+            aspect-ratio: 1 / 1;
             margin: 0 auto;
             isolation: isolate;
         }
         .hero-stage .quote-card {
             position: absolute;
             top: 50%;
-            left: 0;
+            right: 0;            /* form anchored to RIGHT of stage      */
             transform: translateY(-50%);
             width: var(--form-w);
             min-width: 280px;
