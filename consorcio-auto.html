@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consórcio Auto | Godoi Broker Corretora de Seguros</title>
+    <meta name="description" content="Adquira seu veículo pelo consórcio sem pagar juros. Parcelas acessíveis, contemplação por lance ou sorteio e as melhores administradoras do mercado.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --green-dark:#1C3612;--green-primary:#2A4E1A;--green-medium:#396928;--green-light:#4C8A38;--gold:#C8A228;--gold-light:#DDB93A;--off-white:#F6F8F3;--text-dark:#191C18;--text-medium:#48514A;--border:#E2E6DE;--radius-sm:8px;--radius-md:14px;--radius-lg:20px;--shadow-md:0 8px 32px rgba(0,0,0,.10); }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', system-ui, sans-serif; color: var(--text-dark); background: #fff; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        .header { position: sticky; top: 0; z-index: 100; background: var(--green-dark); border-bottom: 1px solid rgba(255,255,255,.08); box-shadow: 0 4px 24px rgba(0,0,0,.2); }
+        .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 32px; height: 72px; display: flex; align-items: center; gap: 32px; }
+        .logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+        .logo-img { height: 56px; width: auto; display: block; }
+        nav.main-nav { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
+        nav.main-nav > a, nav.main-nav .nav-item > a { font-size: 13.5px; font-weight: 500; color: rgba(255,255,255,.85); text-decoration: none; padding: 7px 13px; border-radius: var(--radius-sm); transition: color .2s, background .2s; white-space: nowrap; display: flex; align-items: center; gap: 5px; }
+        nav.main-nav > a:hover, nav.main-nav .nav-item > a:hover { color: #fff; background: rgba(255,255,255,.1); }
+        .nav-item { position: relative; }
+        .nav-item > a .caret { width: 10px; height: 10px; opacity: .7; transition: transform .2s; }
+        .nav-item:hover > a .caret { transform: rotate(180deg); }
+        .nav-dropdown { position: absolute; top: calc(100% + 6px); left: 0; background: var(--green-dark); border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-md); padding: 6px 0; min-width: 230px; box-shadow: 0 16px 48px rgba(0,0,0,.35); opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .18s, transform .18s, visibility .18s; z-index: 200; }
+        .nav-item:hover .nav-dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+        .nav-dropdown a { display: block; font-size: 13px; font-weight: 500; color: rgba(255,255,255,.8); padding: 9px 18px; text-decoration: none; transition: background .15s, color .15s; white-space: nowrap; }
+        .nav-dropdown a:hover { background: rgba(255,255,255,.1); color: #fff; }
+        .header-right { display: flex; align-items: center; gap: 14px; margin-left: auto; }
+        .btn-cta { background: var(--gold); color: var(--green-dark); font-weight: 700; font-size: 14px; padding: 10px 22px; border-radius: var(--radius-sm); text-decoration: none; white-space: nowrap; transition: background .2s, transform .2s; }
+        .btn-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+        .page-hero { background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 60%, var(--green-medium) 100%); padding: 72px 32px 80px; text-align: center; position: relative; overflow: hidden; }
+        .page-hero::before { content: ''; position: absolute; inset: 0; background: url("assets/hero-bg.png") center/cover no-repeat; opacity: .06; }
+        .page-hero-tag { display: inline-block; background: rgba(200,162,40,.2); color: var(--gold); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 5px 14px; border-radius: 99px; border: 1px solid rgba(200,162,40,.3); margin-bottom: 18px; }
+        .page-hero h1 { font-size: clamp(32px, 4vw, 54px); font-weight: 900; color: #fff; line-height: 1.15; margin-bottom: 18px; position: relative; }
+        .page-hero p { font-size: 18px; color: rgba(255,255,255,.75); max-width: 640px; margin: 0 auto 32px; position: relative; }
+        .page-hero .btn-hero { background: var(--gold); color: var(--green-dark); font-weight: 700; font-size: 15px; padding: 14px 32px; border-radius: var(--radius-sm); text-decoration: none; display: inline-block; transition: background .2s, transform .2s; position: relative; }
+        .page-hero .btn-hero:hover { background: var(--gold-light); transform: translateY(-2px); }
+        .content-wrap { max-width: 1100px; margin: 0 auto; padding: 80px 32px; }
+        .sections-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+        .info-card { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-md); }
+        .info-card.full { grid-column: 1 / -1; }
+        .info-card-icon { width: 48px; height: 48px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; margin-bottom: 18px; font-size: 22px; }
+        .info-card-icon.green { background: rgba(76,138,56,.12); }
+        .info-card-icon.gold  { background: rgba(200,162,40,.12); }
+        .info-card-icon.red   { background: rgba(220,38,38,.08); }
+        .info-card-icon.blue  { background: rgba(59,130,246,.1); }
+        .info-card h2 { font-size: 20px; font-weight: 800; color: var(--green-dark); margin-bottom: 18px; }
+        .info-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .info-card ul li { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; color: var(--text-medium); line-height: 1.55; }
+        .info-card ul li::before { content: "check"; font-family: monospace; width: 20px; height: 20px; min-width: 20px; background: var(--green-light); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; margin-top: 1px; }
+        .info-card.excl ul li::before { content: "x"; background: #dc2626; }
+        .cta-bottom { background: linear-gradient(135deg, var(--green-dark), var(--green-primary)); padding: 72px 32px; text-align: center; }
+        .cta-bottom h2 { font-size: 36px; font-weight: 900; color: #fff; margin-bottom: 14px; }
+        .cta-bottom p { font-size: 17px; color: rgba(255,255,255,.7); margin-bottom: 32px; }
+        .cta-bottom .btn-cta-lg { background: var(--gold); color: var(--green-dark); font-weight: 700; font-size: 16px; padding: 16px 40px; border-radius: var(--radius-sm); text-decoration: none; display: inline-block; transition: background .2s, transform .2s; }
+        .cta-bottom .btn-cta-lg:hover { background: var(--gold-light); transform: translateY(-2px); }
+        footer { background: var(--green-dark); padding: 56px 0 0; }
+        .footer-grid { max-width: 1280px; margin: 0 auto; padding: 0 32px; display: grid; grid-template-columns: 2fr 1fr 1fr 1.2fr; gap: 48px; }
+        .ftr-brand-name { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 2px; }
+        .ftr-brand-sub { font-size: 10px; font-weight: 700; color: var(--gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+        .ftr-desc { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.75; max-width: 270px; margin-bottom: 18px; }
+        .ftr-col h4 { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+        .ftr-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .ftr-col ul li a { font-size: 14px; color: rgba(255,255,255,.65); text-decoration: none; transition: color .2s; }
+        .ftr-col ul li a:hover { color: #fff; }
+        .ftr-bottom { border-top: 1px solid rgba(255,255,255,.08); margin-top: 48px; padding: 24px 32px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+        .ftr-bottom p { font-size: 12px; color: rgba(255,255,255,.35); }
+        .ftr-contacts { display: flex; flex-direction: column; gap: 8px; }
+        .ftr-contacts a { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
+        .ftr-contacts a:hover { color: var(--gold); }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .sections-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .content-wrap { padding: 48px 20px; } .header-inner { padding: 0 20px; } nav.main-nav { display: none; } }
+</style>
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <a href="index.html" class="logo"><img class="logo-img" src="assets/logo.png" alt="Godoi Broker"></a>
+        <nav class="main-nav">
+            <div class="nav-item">
+                <a href="index.html#servicos">Para Você <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+                <div class="nav-dropdown">
+                    <a href="seguro-auto.html">Seguro Auto</a>
+                    <a href="seguro-vida.html">Seguro de Vida</a>
+                    <a href="seguro-saude.html">Planos de Saúde</a>
+                    <a href="seguro-residencial.html">Seguro Residencial</a>
+                    <a href="seguro-moto.html">Seguro Moto</a>
+                    <a href="seguro-viagem.html">Seguro Viagem</a>
+                    <a href="seguro-eletronicos.html">Seguro Eletrônicos</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="index.html#servicos">Para Empresa <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+                <div class="nav-dropdown">
+                    <a href="seguro-empresarial.html">Seguro Empresarial</a>
+                    <a href="seguro-do.html">Directores &amp; Officers (D&amp;O)</a>
+                    <a href="seguro-rc-profissional.html">RC Profissional</a>
+                    <a href="seguro-transportes.html">Transportes e Cargas</a>
+                    <a href="seguro-garantia.html">Seguro Garantia</a>
+                    <a href="seguro-riscos-engenharia.html">Riscos de Engenharia</a>
+                    <a href="seguro-responsabilidade-civil.html">Responsabilidade Civil</a>
+                    <a href="seguro-condominio.html">Seguro Condomínio</a>
+                </div>
+            </div>
+            <div class="nav-item">
+                <a href="seguro-consorcio.html">Consórcio <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+                <div class="nav-dropdown">
+                    <a href="consorcio-auto.html">Consórcio Auto</a>
+                    <a href="consorcio-imovel.html">Consórcio Imobiliário</a>
+                </div>
+            </div>
+            <a href="index.html#sobre">Institucional</a>
+        </nav>
+        <div class="header-right"><a href="index.html#cotacao" class="btn-cta">Cote Grátis →</a></div>
+    </div>
+</header>
+<section class="page-hero">
+    <div class="page-hero-tag">Consórcio</div>
+    <h1>Consórcio Auto<br><span style="color:var(--gold)">sem juros, sem entrada</span></h1>
+    <p>A forma mais inteligente de conquistar seu próximo veículo. Parcelas acessíveis, sem juros e com contemplação por sorteio ou lance.</p>
+    <a href="index.html#cotacao" class="btn-hero">Simular Consórcio →</a>
+</section>
+<div class="content-wrap">
+    <div class="sections-grid">
+        <div class="info-card">
+            <div class="info-card-icon green">🚗</div>
+            <h2>O que está incluído</h2>
+            <ul>
+                <li>Carros nacionais e importados (novos e seminovos)</li>
+                <li>Motos e utilitários</li>
+                <li>Caminhões e veículos pesados</li>
+                <li>Carta de crédito corrigida pelo INPC</li>
+                <li>Contemplação por sorteio mensal</li>
+                <li>Contemplação por lance livre ou fixo</li>
+            </ul>
+        </div>
+        <div class="info-card">
+            <div class="info-card-icon gold">⭐</div>
+            <h2>Vantagens</h2>
+            <ul>
+                <li>Zero juros — paga apenas taxa de administração</li>
+                <li>Sem entrada obrigatória</li>
+                <li>Prazo de até 100 meses</li>
+                <li>Uso do FGTS como lance (veículo próprio)</li>
+                <li>Portabilidade de cota entre grupos</li>
+                <li>Seguro prestamista incluso em muitos planos</li>
+            </ul>
+        </div>
+        <div class="info-card full">
+            <div class="info-card-icon blue">ℹ️</div>
+            <h2>Como funciona</h2>
+            <ul style="display:grid;grid-template-columns:1fr 1fr;gap:10px 32px;">
+                <li>Um grupo de pessoas contribui mensalmente para um fundo comum</li>
+                <li>Todo mês um ou mais participantes são contemplados por sorteio</li>
+                <li>Você pode dar um lance para antecipar a contemplação</li>
+                <li>Com a carta de crédito, compra o veículo à vista (poder de negociação)</li>
+                <li>Após contemplado, continua pagando as parcelas normalmente</li>
+                <li>Trabalhamos com as maiores administradoras do Brasil</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="cta-bottom">
+    <h2>Simule seu Consórcio Auto</h2>
+    <p>Fale com um consultor e descubra o plano ideal para o seu perfil.</p>
+    <a href="index.html#cotacao" class="btn-cta-lg">Simular Agora →</a>
+</div>
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="ftr-brand-name">Godoi Broker</div>
+            <div class="ftr-brand-sub">Corretora de Seguros</div>
+            <p class="ftr-desc">Ha mais de 15 anos protegendo familias e empresas com as melhores solucoes em seguros do mercado brasileiro.</p>
+            <div class="ftr-contacts">
+                <a href="tel:1131841777">11 3184-1777</a>
+                <a href="tel:1136994354">11 3699-4354</a>
+                <a href="mailto:contato.comercial@godoibroker.com.br">contato.comercial@godoibroker.com.br</a>
+            </div>
+        </div>
+        <div class="ftr-col">
+            <h4>Para Voce</h4>
+            <ul>
+                <li><a href="seguro-auto.html">Seguro Auto</a></li>
+                <li><a href="seguro-vida.html">Seguro de Vida</a></li>
+                <li><a href="seguro-saude.html">Planos de Saude</a></li>
+                <li><a href="seguro-residencial.html">Seguro Residencial</a></li>
+                <li><a href="seguro-moto.html">Seguro Moto</a></li>
+                <li><a href="seguro-viagem.html">Seguro Viagem</a></li>
+                <li><a href="seguro-eletronicos.html">Seguro Eletronicos</a></li>
+                <li><a href="seguro-consorcio.html">Consorcio</a></li>
+            </ul>
+        </div>
+        <div class="ftr-col">
+            <h4>Para Empresa</h4>
+            <ul>
+                <li><a href="seguro-empresarial.html">Seguro Empresarial</a></li>
+                <li><a href="seguro-do.html">D&amp;O</a></li>
+                <li><a href="seguro-rc-profissional.html">RC Profissional</a></li>
+                <li><a href="seguro-transportes.html">Transportes e Cargas</a></li>
+                <li><a href="seguro-garantia.html">Seguro Garantia</a></li>
+                <li><a href="seguro-riscos-engenharia.html">Riscos de Engenharia</a></li>
+                <li><a href="seguro-responsabilidade-civil.html">Resp. Civil</a></li>
+                <li><a href="seguro-condominio.html">Condominio</a></li>
+            </ul>
+        </div>
+        <div class="ftr-col">
+            <h4>Empresa</h4>
+            <ul>
+                <li><a href="index.html#sobre">Sobre Nos</a></li>
+                <li><a href="index.html#cotacao">Contato</a></li>
+            </ul>
+            <br>
+            <h4>Localizacao</h4>
+            <ul>
+                <li><a href="#">Av. Dionisia Alves Barreto, 88 - Vl. Osasco - Osasco SP</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="ftr-bottom">
+        <p>2025 Godoi Broker Corretora de Seguros - Todos os direitos reservados.</p>
+    </div>
+</footer>
+
+</body>
+</html>
