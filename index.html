@@ -279,54 +279,62 @@
             z-index: 5;
         }
 
+        /* ─── HERO LAYOUT: 3 zones absolute-positioned by viewport % ───
+           Coordenadas definidas pelo cliente (W/H = 100% viewport):
+             Texto:     X 4%  → 39%
+             Pessoa:    X 45% → 67%   (Y 10% → 100%)
+             Form:      X 67.3% → 94.9%  (Y 18.2%, H 59.1%) */
         .hero-inner {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 88px 32px;
-            display: grid;
-            grid-template-columns: 1.05fr 1fr;
-            gap: 72px;
-            align-items: center;
-            width: 100%;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* ─── STAGE: proportional layering (form + person + stickers) ──
-           Everything inside scales with the stage size, so the model's
-           hand always lands at the right edge of the form regardless
-           of viewport. The stage has a fixed aspect-ratio; form,
-           person and stickers are positioned in % relative to it. */
-        .hero-stage {
-            --form-w: 57%;       /* form fits between the two hands       */
-            --png-left: -141%;   /* left hand at form's left edge, right hand at form's right edge */
-            --sticker: 15%;      /* sticker diameter relative to stage   */
-
             position: relative;
             width: 100%;
-            max-width: 600px;
-            aspect-ratio: 1 / 1;
-            margin: 0 auto;
-            isolation: isolate;
+            height: 100%;
+            min-height: calc(100vh - 72px);
+            max-width: none;
+            margin: 0;
+            padding: 0;
         }
-        .hero-stage .quote-card {
+
+        .hero-copy {
             position: absolute;
+            left: 4%;
             top: 50%;
-            right: 0;            /* form anchored to RIGHT of stage      */
             transform: translateY(-50%);
-            width: var(--form-w);
-            min-width: 280px;
+            width: 35%;
             z-index: 2;
+        }
+
+        .hero-stage {
+            position: absolute;
+            left: 45%;
+            top: 10%;
+            width: 22%;
+            height: 90%;
+            z-index: 1;
+            overflow: hidden;
         }
         .hero-person {
             position: absolute;
             top: 0;
-            left: var(--png-left);
+            left: 50%;
             height: 100%;
             width: auto;
-            z-index: 3;
+            transform: translateX(-66%); /* center crop on body (~66% of PNG) */
             pointer-events: none;
             user-select: none;
+        }
+
+        .hero-form {
+            position: absolute;
+            left: 67.3%;
+            top: 18.2%;
+            width: 27.6%;
+            height: 59.1%;
+            z-index: 2;
+        }
+        .hero-form .quote-card {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         /* ─── STICKERS (floating circles, % positioned) ───────────── */
@@ -1289,8 +1297,22 @@
         }
 
         @media (max-width: 1100px) {
-            .hero-inner { grid-template-columns: 1fr; }
-            .quote-card { max-width: 480px; }
+            /* stack hero vertically: text top, person+form below */
+            .hero-inner {
+                position: static;
+                min-height: auto;
+                padding: 56px 5vw;
+                display: flex;
+                flex-direction: column;
+                gap: 32px;
+            }
+            .hero-copy,
+            .hero-stage,
+            .hero-form { position: static; width: 100%; left: auto; top: auto; height: auto; transform: none; }
+            .hero-copy { max-width: 640px; margin: 0 auto; text-align: center; }
+            .hero-stage { height: 320px; max-width: 360px; margin: 0 auto; }
+            .hero-person { left: 50%; transform: translateX(-66%); }
+            .hero-form { max-width: 480px; margin: 0 auto; }
             .benefits-grid { grid-template-columns: repeat(2, 1fr); }
             .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
             .footer-grid { grid-template-columns: 1fr 1fr; }
@@ -1300,13 +1322,8 @@
             nav.main-nav { display: none; }
             .mobile-menu-btn { display: flex; }
             .hdr-phone { display: none; }
-            .hero-inner { padding: 64px 20px; gap: 40px; }
-            .hero-stage {
-                --form-w: 72%;
-                --png-left: -55%;
-                aspect-ratio: 1 / 1;
-                max-width: 480px;
-            }
+            .hero-inner { padding: 48px 20px; gap: 24px; }
+            .hero-stage { height: 280px; }
             .hero-stats { gap: 28px; flex-wrap: wrap; }
             .services-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
             .services-grid .svc-card,
@@ -1387,26 +1404,13 @@
             </p>
         </div>
 
-        <!-- Stage: form + person + floating stickers -->
+        <!-- Person zone: X 45% → 67% -->
         <div class="hero-stage">
-            <span class="sticker s-plane" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1L15 22v-1.5L13 19v-5.5l8 2.5z"/></svg>
-            </span>
-            <span class="sticker s-house" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H10v7H4a1 1 0 0 1-1-1V11z"/></svg>
-            </span>
-            <span class="sticker s-paw" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="9" r="2"/><circle cx="10" cy="5" r="2"/><circle cx="14" cy="5" r="2"/><circle cx="18" cy="9" r="2"/><path d="M12 11c-3 0-6 3-6 6 0 1.7 1.3 3 3 3 1 0 2-.5 3-.5s2 .5 3 .5c1.7 0 3-1.3 3-3 0-3-3-6-6-6z"/></svg>
-            </span>
-            <span class="sticker s-life" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3v5.5M12 15.5V21M3 12h5.5M15.5 12H21" stroke-linecap="round"/></svg>
-            </span>
-            <span class="sticker s-car" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14l1.5-4.5A2 2 0 0 1 8.4 8h7.2a2 2 0 0 1 1.9 1.5L19 14M5 14h14M5 14v3a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1M19 14v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1"/><circle cx="8" cy="14" r="1.2" fill="currentColor"/><circle cx="16" cy="14" r="1.2" fill="currentColor"/><path d="M20 6l.5 1.5L22 8l-1.5.5L20 10l-.5-1.5L18 8l1.5-.5L20 6z" fill="currentColor" stroke="none"/></svg>
-            </span>
             <img class="hero-person" src="assets/hero-pessoa.png" alt="" aria-hidden="true">
+        </div>
 
-            <!-- Quote Form -->
+        <!-- Form zone: X 67.3% → 94.9%, Y 18.2%, H 59.1% -->
+        <div class="hero-form">
             <div class="quote-card" id="cotacao">
             <h3>Faça sua Cotação</h3>
             <p class="sub">Obtenha o <strong>melhor custo-benefício</strong> gratuitamente</p>
@@ -1449,7 +1453,7 @@
 
             <p class="form-disclaimer">Seus dados estão protegidos · Política de Privacidade</p>
         </div>
-        </div><!-- /hero-stage -->
+        </div><!-- /hero-form -->
 
     </div>
 </section>
