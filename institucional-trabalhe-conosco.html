@@ -69,7 +69,29 @@
       .ftr-bottom p { font-size: 12px; color: rgba(255,255,255,.35); }
       @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .sections-grid { grid-template-columns: 1fr; } }
       @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .content-wrap { padding: 48px 20px; } .header-inner { padding: 0 20px; } nav.main-nav { display: none; } }
-    </style>
+    
+        /* ─── Animated SVG icons ──────────────────────────────────────── */
+        .ico-wrap { width:48px; height:48px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; margin-bottom:18px; flex-shrink:0; overflow:visible; position:relative; }
+        .ico-wrap.ico-green { background:rgba(76,138,56,.12); }
+        .ico-wrap.ico-red   { background:rgba(220,38,38,.08); }
+        .ico-wrap.ico-blue  { background:rgba(59,130,246,.10); }
+        .ico-wrap.ico-gold  { background:rgba(200,162,40,.12); }
+        .ico-svg { display:block; }
+        @keyframes ico-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+        @keyframes ico-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.13)} }
+        @keyframes ico-spin  { to{transform:rotate(360deg)} }
+        @keyframes ico-beat  { 0%,100%{transform:scale(1)} 14%{transform:scale(1.22)} 28%{transform:scale(1)} 42%{transform:scale(1.15)} 70%{transform:scale(1)} }
+        @keyframes ico-shake { 0%,100%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)} }
+        @keyframes ico-slide { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
+        @keyframes ico-swing { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} }
+        .anim-float { animation:ico-float 2.5s ease-in-out infinite; }
+        .anim-pulse { animation:ico-pulse 2s ease-in-out infinite; }
+        .anim-spin  { animation:ico-spin 10s linear infinite; transform-origin:center; }
+        .anim-beat  { animation:ico-beat 1.8s ease-in-out infinite; }
+        .anim-shake { animation:ico-shake 3.5s ease-in-out infinite; }
+        .anim-slide { animation:ico-slide 2.2s ease-in-out infinite; }
+        .anim-swing { animation:ico-swing 2.5s ease-in-out infinite; transform-origin:bottom center; }
+</style>
 </head>
 <body>
 <header class="header">
@@ -133,12 +155,12 @@
 
   <div class="sections-grid">
     <div class="info-card full">
-      <div class="info-card-icon gold">🚀</div>
+      <div class="ico-wrap ico-gold"><svg class="ico-svg anim-float" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4c6 1 10 8 10 8l-4 2L14 24l-6-10-4-2s4-7 10-8z" stroke="#c8a228" stroke-width="1.8" stroke-linejoin="round" fill="rgba(200,162,40,.10)"/><circle cx="14" cy="11" r="2.5" stroke="#c8a228" stroke-width="1.6"/><path d="M10 19l-2 4M18 19l2 4" stroke="#c8a228" stroke-width="1.3" stroke-linecap="round" opacity=".45"/></svg></div>
       <h2>Por que trabalhar na Godoi Broker?</h2>
       <p>Somos uma corretora em crescimento, com cultura colaborativa, ambiente desafiador e foco no desenvolvimento de pessoas. Aqui você encontrará espaço para crescer profissionalmente enquanto impacta positivamente a vida dos nossos clientes.</p>
     </div>
     <div class="info-card">
-      <div class="info-card-icon green">🎯</div>
+      <div class="ico-wrap ico-green"><svg class="ico-svg anim-pulse" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="#2d6a4f" stroke-width="1.8" fill="rgba(44,110,60,.04)"/><circle cx="14" cy="14" r="6" stroke="#2d6a4f" stroke-width="1.6" fill="rgba(44,110,60,.07)"/><circle cx="14" cy="14" r="2.5" fill="rgba(44,110,60,.30)" stroke="#2d6a4f" stroke-width="1.8"/></svg></div>
       <h2>O que Oferecemos</h2>
       <ul>
         <li>Remuneração competitiva e comissionamento atrativo</li>
@@ -149,7 +171,7 @@
       </ul>
     </div>
     <div class="info-card">
-      <div class="info-card-icon blue">👤</div>
+      <div class="ico-wrap ico-blue"><svg class="ico-svg anim-float" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="9" r="5" stroke="#3b82f6" stroke-width="1.8" fill="rgba(59,130,246,.08)"/><path d="M4 25c0-5.5 4.5-10 10-10s10 4.5 10 10" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round"/></svg></div>
       <h2>Perfil que Buscamos</h2>
       <ul>
         <li>Proatividade e orientação a resultados</li>
@@ -160,7 +182,7 @@
       </ul>
     </div>
     <div class="info-card full">
-      <div class="info-card-icon gold">📩</div>
+      <div class="ico-wrap ico-gold"><svg class="ico-svg anim-float" width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="3" y="7" width="22" height="16" rx="2" stroke="#c8a228" stroke-width="1.8" fill="rgba(200,162,40,.08)"/><path d="M3 9l11 8 11-8" stroke="#c8a228" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <h2>Envie seu Currículo</h2>
       <p>Interessado em fazer parte do nosso time? Envie seu currículo para <strong>rh@godoibroker.com.br</strong> com o título <em>"Candidatura Espontânea"</em> ou o nome da vaga de interesse.</p>
       <p style="margin-top:12px;">Retornamos todas as candidaturas — sua oportunidade começa com um e-mail!</p>

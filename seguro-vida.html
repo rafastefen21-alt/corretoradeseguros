@@ -69,42 +69,27 @@
         .ftr-contacts a { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,.6); text-decoration: none; transition: color .2s; }
         .ftr-contacts a:hover { color: var(--gold); }
         @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .sections-grid { grid-template-columns: 1fr; } }
-        @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .content-wrap { padding: 48px 20px; } .header-inner { padding: 0 20px; } nav.main-nav { display: none; } }
-
-        /* ── Animated heart icon ── */
-        @keyframes heartbeat {
-            0%,100% { transform: scale(1); }
-            12%     { transform: scale(1.22); }
-            24%     { transform: scale(1); }
-            36%     { transform: scale(1.16); }
-            60%     { transform: scale(1); }
-        }
-        @keyframes pulse-ring {
-            0%   { transform: scale(.85); opacity: .5; }
-            70%  { transform: scale(1.55); opacity: 0; }
-            100% { transform: scale(1.55); opacity: 0; }
-        }
-        .heart-wrap {
-            position: relative;
-            width: 48px; height: 48px;
-            border-radius: var(--radius-md);
-            background: rgba(76,138,56,.12);
-            display: flex; align-items: center; justify-content: center;
-            margin-bottom: 18px;
-            overflow: visible;
-        }
-        .heart-wrap::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: var(--radius-md);
-            background: rgba(76,138,56,.18);
-            animation: pulse-ring 1.8s ease-out infinite;
-        }
-        .heart-svg {
-            animation: heartbeat 1.8s ease-in-out infinite;
-            transform-origin: center;
-        }
+        @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .content-wrap { padding: 48px 20px; } .header-inner { padding: 0 20px; } nav.main-nav { display: none; } }/* ─── Animated SVG icons ──────────────────────────────────────── */
+        .ico-wrap { width:48px; height:48px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; margin-bottom:18px; flex-shrink:0; overflow:visible; position:relative; }
+        .ico-wrap.ico-green { background:rgba(76,138,56,.12); }
+        .ico-wrap.ico-red   { background:rgba(220,38,38,.08); }
+        .ico-wrap.ico-blue  { background:rgba(59,130,246,.10); }
+        .ico-wrap.ico-gold  { background:rgba(200,162,40,.12); }
+        .ico-svg { display:block; }
+        @keyframes ico-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+        @keyframes ico-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.13)} }
+        @keyframes ico-spin  { to{transform:rotate(360deg)} }
+        @keyframes ico-beat  { 0%,100%{transform:scale(1)} 14%{transform:scale(1.22)} 28%{transform:scale(1)} 42%{transform:scale(1.15)} 70%{transform:scale(1)} }
+        @keyframes ico-shake { 0%,100%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)} }
+        @keyframes ico-slide { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
+        @keyframes ico-swing { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} }
+        .anim-float { animation:ico-float 2.5s ease-in-out infinite; }
+        .anim-pulse { animation:ico-pulse 2s ease-in-out infinite; }
+        .anim-spin  { animation:ico-spin 10s linear infinite; transform-origin:center; }
+        .anim-beat  { animation:ico-beat 1.8s ease-in-out infinite; }
+        .anim-shake { animation:ico-shake 3.5s ease-in-out infinite; }
+        .anim-slide { animation:ico-slide 2.2s ease-in-out infinite; }
+        .anim-swing { animation:ico-swing 2.5s ease-in-out infinite; transform-origin:bottom center; }
 </style>
 </head>
 <body>
@@ -168,13 +153,8 @@
 <div class="content-wrap">
     <div class="sections-grid">
         <div class="info-card">
-            <div class="heart-wrap">
-                <svg class="heart-svg" width="26" height="24" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13 21.5S2 14.8 2 8a5.5 5.5 0 0 1 11-0.5A5.5 5.5 0 0 1 24 8c0 6.8-11 13.5-11 13.5z"
-                          fill="rgba(44,110,60,.15)" stroke="#2d6a4f" stroke-width="1.8" stroke-linejoin="round"/>
-                </svg>
-            </div>
-            <h2>Principais Coberturas</h2>
+            <div class="ico-wrap ico-green"><svg class="ico-svg anim-beat" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 23S4 16.5 4 10a5.5 5.5 0 0 1 10-3.1A5.5 5.5 0 0 1 24 10c0 6.5-10 13-10 13z" stroke="#2d6a4f" stroke-width="1.8" stroke-linejoin="round" fill="rgba(44,110,60,.12)"/></svg></div>
+<h2>Principais Coberturas</h2>
             <ul>
                 <li>Morte natural e acidental</li>
                 <li>Invalidez permanente total por acidente</li>
@@ -184,7 +164,7 @@
             </ul>
         </div>
         <div class="info-card excl">
-            <div class="info-card-icon red">X</div>
+            <div class="ico-wrap ico-green"><svg class="ico-svg anim-beat" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 23S4 16.5 4 10a5.5 5.5 0 0 1 10-3.1A5.5 5.5 0 0 1 24 10c0 6.5-10 13-10 13z" stroke="#2d6a4f" stroke-width="1.8" stroke-linejoin="round" fill="rgba(44,110,60,.12)"/></svg></div>
             <h2>Principais Exclusoes</h2>
             <ul>
                 <li>Suicidio nos primeiros 2 anos de vigencia</li>
@@ -194,7 +174,7 @@
             </ul>
         </div>
         <div class="info-card full">
-            <div class="info-card-icon blue">+</div>
+            <div class="ico-wrap ico-red"><svg class="ico-svg anim-shake" width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="10" stroke="#dc2626" stroke-width="1.8" fill="rgba(220,38,38,.06)"/><path d="M10 10l8 8M18 10l-8 8" stroke="#dc2626" stroke-width="2" stroke-linecap="round"/></svg></div>
             <h2>Extensoes de Cobertura</h2>
             <ul style="display:grid;grid-template-columns:1fr 1fr;gap:10px 32px;">
                 <li>Assistencia funeral individual e familiar</li>

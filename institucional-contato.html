@@ -69,7 +69,29 @@
       .ftr-bottom p { font-size: 12px; color: rgba(255,255,255,.35); }
       @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .sections-grid { grid-template-columns: 1fr; } }
       @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .content-wrap { padding: 48px 20px; } .header-inner { padding: 0 20px; } nav.main-nav { display: none; } }
-    </style>
+    
+        /* ─── Animated SVG icons ──────────────────────────────────────── */
+        .ico-wrap { width:48px; height:48px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; margin-bottom:18px; flex-shrink:0; overflow:visible; position:relative; }
+        .ico-wrap.ico-green { background:rgba(76,138,56,.12); }
+        .ico-wrap.ico-red   { background:rgba(220,38,38,.08); }
+        .ico-wrap.ico-blue  { background:rgba(59,130,246,.10); }
+        .ico-wrap.ico-gold  { background:rgba(200,162,40,.12); }
+        .ico-svg { display:block; }
+        @keyframes ico-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+        @keyframes ico-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.13)} }
+        @keyframes ico-spin  { to{transform:rotate(360deg)} }
+        @keyframes ico-beat  { 0%,100%{transform:scale(1)} 14%{transform:scale(1.22)} 28%{transform:scale(1)} 42%{transform:scale(1.15)} 70%{transform:scale(1)} }
+        @keyframes ico-shake { 0%,100%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)} }
+        @keyframes ico-slide { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
+        @keyframes ico-swing { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} }
+        .anim-float { animation:ico-float 2.5s ease-in-out infinite; }
+        .anim-pulse { animation:ico-pulse 2s ease-in-out infinite; }
+        .anim-spin  { animation:ico-spin 10s linear infinite; transform-origin:center; }
+        .anim-beat  { animation:ico-beat 1.8s ease-in-out infinite; }
+        .anim-shake { animation:ico-shake 3.5s ease-in-out infinite; }
+        .anim-slide { animation:ico-slide 2.2s ease-in-out infinite; }
+        .anim-swing { animation:ico-swing 2.5s ease-in-out infinite; transform-origin:bottom center; }
+</style>
 </head>
 <body>
 <header class="header">
@@ -133,7 +155,7 @@
 
   <div class="sections-grid">
     <div class="info-card full">
-      <div class="info-card-icon green">📞</div>
+      <div class="ico-wrap ico-green"><svg class="ico-svg anim-swing" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M8 4h5l2 5.5-3 1.8a14 14 0 0 0 6.7 6.7l1.8-3L26 17v5c-13 2.5-22-6.5-18-18z" stroke="#2d6a4f" stroke-width="1.8" stroke-linejoin="round" fill="rgba(44,110,60,.10)"/></svg></div>
       <h2>Canais de Atendimento</h2>
       <div class="contact-grid">
         <div class="contact-item">
@@ -167,7 +189,7 @@
       </div>
     </div>
     <div class="info-card full">
-      <div class="info-card-icon gold">💬</div>
+      <div class="ico-wrap ico-gold"><svg class="ico-svg anim-float" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 5h20v14H16l-4 4v-4H4z" stroke="#c8a228" stroke-width="1.8" stroke-linejoin="round" fill="rgba(200,162,40,.08)"/><path d="M9 12h10M9 9h7" stroke="#c8a228" stroke-width="1.3" stroke-linecap="round" opacity=".55"/></svg></div>
       <h2>Por que nos Contatar?</h2>
       <ul>
         <li>Cotações personalizadas sem compromisso</li>

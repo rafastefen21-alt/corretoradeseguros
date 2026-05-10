@@ -69,7 +69,29 @@
       .ftr-bottom p { font-size: 12px; color: rgba(255,255,255,.35); }
       @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .sections-grid { grid-template-columns: 1fr; } }
       @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .content-wrap { padding: 48px 20px; } .header-inner { padding: 0 20px; } nav.main-nav { display: none; } }
-    </style>
+    
+        /* ─── Animated SVG icons ──────────────────────────────────────── */
+        .ico-wrap { width:48px; height:48px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; margin-bottom:18px; flex-shrink:0; overflow:visible; position:relative; }
+        .ico-wrap.ico-green { background:rgba(76,138,56,.12); }
+        .ico-wrap.ico-red   { background:rgba(220,38,38,.08); }
+        .ico-wrap.ico-blue  { background:rgba(59,130,246,.10); }
+        .ico-wrap.ico-gold  { background:rgba(200,162,40,.12); }
+        .ico-svg { display:block; }
+        @keyframes ico-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+        @keyframes ico-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.13)} }
+        @keyframes ico-spin  { to{transform:rotate(360deg)} }
+        @keyframes ico-beat  { 0%,100%{transform:scale(1)} 14%{transform:scale(1.22)} 28%{transform:scale(1)} 42%{transform:scale(1.15)} 70%{transform:scale(1)} }
+        @keyframes ico-shake { 0%,100%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)} }
+        @keyframes ico-slide { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
+        @keyframes ico-swing { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} }
+        .anim-float { animation:ico-float 2.5s ease-in-out infinite; }
+        .anim-pulse { animation:ico-pulse 2s ease-in-out infinite; }
+        .anim-spin  { animation:ico-spin 10s linear infinite; transform-origin:center; }
+        .anim-beat  { animation:ico-beat 1.8s ease-in-out infinite; }
+        .anim-shake { animation:ico-shake 3.5s ease-in-out infinite; }
+        .anim-slide { animation:ico-slide 2.2s ease-in-out infinite; }
+        .anim-swing { animation:ico-swing 2.5s ease-in-out infinite; transform-origin:bottom center; }
+</style>
 </head>
 <body>
 <header class="header">
@@ -133,24 +155,24 @@
 
   <div class="sections-grid">
     <div class="info-card full">
-      <div class="info-card-icon green">🏢</div>
+      <div class="ico-wrap ico-green"><svg class="ico-svg anim-float" width="28" height="28" viewBox="0 0 28 28" fill="none"><rect x="4" y="6" width="20" height="18" rx="1.5" stroke="#2d6a4f" stroke-width="1.8" fill="rgba(44,110,60,.08)"/><path d="M4 11h20" stroke="#2d6a4f" stroke-width="1.3" stroke-linecap="round" opacity=".4"/><rect x="8" y="15" width="4.5" height="3.5" rx=".5" stroke="#2d6a4f" stroke-width="1.3" opacity=".55"/><rect x="15.5" y="15" width="4.5" height="3.5" rx=".5" stroke="#2d6a4f" stroke-width="1.3" opacity=".55"/><path d="M10 6V4.5a2 2 0 0 1 4 0V6" stroke="#2d6a4f" stroke-width="1.5" stroke-linecap="round"/><path d="M12 24v-5h4v5" stroke="#2d6a4f" stroke-width="1.6" stroke-linejoin="round"/></svg></div>
       <h2>Quem Somos</h2>
       <p>A <strong>Godoi Broker Corretora de Seguros</strong> nasceu com um propósito claro: oferecer proteção real para pessoas e empresas, com atendimento humano, transparência e expertise de mercado.</p>
       <p>Atuamos como intermediários independentes entre nossos clientes e as melhores seguradoras do Brasil, garantindo sempre a melhor solução para cada perfil e necessidade.</p>
       <p>Nossa equipe é formada por profissionais especializados, capacitados e comprometidos com a entrega de um serviço de excelência — do primeiro contato até a conclusão de um sinistro.</p>
     </div>
     <div class="info-card">
-      <div class="info-card-icon gold">🌟</div>
+      <div class="ico-wrap ico-gold"><svg class="ico-svg anim-pulse" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3l3 8h8l-6.5 5 2.5 8L14 19l-7 5 2.5-8L3 11h8z" stroke="#c8a228" stroke-width="1.8" stroke-linejoin="round" fill="rgba(200,162,40,.12)"/></svg></div>
       <h2>Missão</h2>
       <p>Proteger o que mais importa para nossos clientes, oferecendo soluções de seguros personalizadas com transparência, agilidade e atendimento de excelência.</p>
     </div>
     <div class="info-card">
-      <div class="info-card-icon green">👁</div>
+      <div class="ico-wrap ico-green"><svg class="ico-svg anim-pulse" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M3 14s4.5-8 11-8 11 8 11 8-4.5 8-11 8-11-8-11-8z" stroke="#2d6a4f" stroke-width="1.8" stroke-linejoin="round" fill="rgba(44,110,60,.08)"/><circle cx="14" cy="14" r="3.5" stroke="#2d6a4f" stroke-width="1.8"/><circle cx="14" cy="14" r="1.3" fill="#2d6a4f"/></svg></div>
       <h2>Visão</h2>
       <p>Ser referência em corretagem de seguros no Brasil, reconhecida pela confiança, inovação e pelo impacto positivo na vida de clientes e parceiros.</p>
     </div>
     <div class="info-card full">
-      <div class="info-card-icon blue">💎</div>
+      <div class="ico-wrap ico-blue"><svg class="ico-svg anim-float" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 24L3 12l3-7h16l3 7z" stroke="#3b82f6" stroke-width="1.8" stroke-linejoin="round" fill="rgba(59,130,246,.08)"/><path d="M3 12h22M9 5l5 7 5-7" stroke="#3b82f6" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity=".5"/></svg></div>
       <h2>Nossos Valores</h2>
       <ul>
         <li>Transparência em todas as relações — sem letras miúdas</li>

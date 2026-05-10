@@ -69,7 +69,29 @@
       .ftr-bottom p { font-size: 12px; color: rgba(255,255,255,.35); }
       @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .sections-grid { grid-template-columns: 1fr; } }
       @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } .content-wrap { padding: 48px 20px; } .header-inner { padding: 0 20px; } nav.main-nav { display: none; } }
-    </style>
+    
+        /* ─── Animated SVG icons ──────────────────────────────────────── */
+        .ico-wrap { width:48px; height:48px; border-radius:var(--radius-md); display:flex; align-items:center; justify-content:center; margin-bottom:18px; flex-shrink:0; overflow:visible; position:relative; }
+        .ico-wrap.ico-green { background:rgba(76,138,56,.12); }
+        .ico-wrap.ico-red   { background:rgba(220,38,38,.08); }
+        .ico-wrap.ico-blue  { background:rgba(59,130,246,.10); }
+        .ico-wrap.ico-gold  { background:rgba(200,162,40,.12); }
+        .ico-svg { display:block; }
+        @keyframes ico-float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+        @keyframes ico-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.13)} }
+        @keyframes ico-spin  { to{transform:rotate(360deg)} }
+        @keyframes ico-beat  { 0%,100%{transform:scale(1)} 14%{transform:scale(1.22)} 28%{transform:scale(1)} 42%{transform:scale(1.15)} 70%{transform:scale(1)} }
+        @keyframes ico-shake { 0%,100%{transform:rotate(0)} 20%{transform:rotate(-8deg)} 40%{transform:rotate(8deg)} 60%{transform:rotate(-5deg)} 80%{transform:rotate(5deg)} }
+        @keyframes ico-slide { 0%,100%{transform:translateX(0)} 50%{transform:translateX(5px)} }
+        @keyframes ico-swing { 0%,100%{transform:rotate(-5deg)} 50%{transform:rotate(5deg)} }
+        .anim-float { animation:ico-float 2.5s ease-in-out infinite; }
+        .anim-pulse { animation:ico-pulse 2s ease-in-out infinite; }
+        .anim-spin  { animation:ico-spin 10s linear infinite; transform-origin:center; }
+        .anim-beat  { animation:ico-beat 1.8s ease-in-out infinite; }
+        .anim-shake { animation:ico-shake 3.5s ease-in-out infinite; }
+        .anim-slide { animation:ico-slide 2.2s ease-in-out infinite; }
+        .anim-swing { animation:ico-swing 2.5s ease-in-out infinite; transform-origin:bottom center; }
+</style>
 </head>
 <body>
 <header class="header">
@@ -133,13 +155,13 @@
 
   <div class="sections-grid">
     <div class="info-card full">
-      <div class="info-card-icon green">🌱</div>
+      <div class="ico-wrap ico-green"><svg class="ico-svg anim-swing" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M7 23c0 0-2-10 5-16C19 1 25 3 25 3s2 8-4 14c-4 4-10 6-10 6" stroke="#2d6a4f" stroke-width="1.8" stroke-linejoin="round" fill="rgba(44,110,60,.10)"/><path d="M14 22l-7-7" stroke="#2d6a4f" stroke-width="1.8" stroke-linecap="round"/></svg></div>
       <h2>Compromisso com a Comunidade</h2>
       <p>Na Godoi Broker, acreditamos que uma empresa responsável vai além de seus produtos e serviços. Por isso, nos engajamos em iniciativas que promovem bem-estar, educação financeira e desenvolvimento sustentável.</p>
       <p>Trabalhamos com parceiros e colaboradores que compartilham dos nossos valores, priorizando práticas de negócio que respeitem as pessoas e o meio ambiente.</p>
     </div>
     <div class="info-card">
-      <div class="info-card-icon gold">📚</div>
+      <div class="ico-wrap ico-gold"><svg class="ico-svg anim-float" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M4 5h14a2 2 0 0 1 2 2v16H4z" stroke="#c8a228" stroke-width="1.8" stroke-linejoin="round" fill="rgba(200,162,40,.08)"/><path d="M20 23H6a2 2 0 0 1 0-4h14" stroke="#c8a228" stroke-width="1.8" stroke-linecap="round"/><path d="M9 10h8M9 14h6" stroke="#c8a228" stroke-width="1.3" stroke-linecap="round" opacity=".5"/></svg></div>
       <h2>Educação Financeira</h2>
       <ul>
         <li>Produção de conteúdo gratuito sobre seguros e proteção financeira</li>
@@ -149,7 +171,7 @@
       </ul>
     </div>
     <div class="info-card">
-      <div class="info-card-icon green">♻️</div>
+      <div class="ico-wrap ico-green"><svg class="ico-svg anim-spin" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 4l3.5 6h-7z" stroke="#2d6a4f" stroke-width="1.6" stroke-linejoin="round" fill="rgba(44,110,60,.12)"/><path d="M17.5 10L22 18H10" stroke="#2d6a4f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 18L6 18a2 2 0 0 0 0 4h16a2 2 0 0 0 1.7-3" stroke="#2d6a4f" stroke-width="1.8" stroke-linecap="round"/><path d="M10.5 10L6 18" stroke="#2d6a4f" stroke-width="1.8" stroke-linecap="round"/></svg></div>
       <h2>Práticas Sustentáveis</h2>
       <ul>
         <li>Operação 100% digital, reduzindo o uso de papel</li>
@@ -159,7 +181,7 @@
       </ul>
     </div>
     <div class="info-card full">
-      <div class="info-card-icon blue">🤝</div>
+      <div class="ico-wrap ico-blue"><svg class="ico-svg anim-pulse" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M3 16l4-4 3.5 3.5L14 12l3.5 3.5L21 12l4 4" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 16v3l4 2 7-3 7 3 4-2v-3" stroke="#3b82f6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" fill="rgba(59,130,246,.07)"/></svg></div>
       <h2>Diversidade e Inclusão</h2>
       <ul>
         <li>Ambiente de trabalho inclusivo, diverso e respeitoso</li>
