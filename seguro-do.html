@@ -185,7 +185,31 @@
         .anim-shake { animation:ico-shake 3.5s ease-in-out infinite; }
         .anim-slide { animation:ico-slide 2.2s ease-in-out infinite; }
         .anim-swing { animation:ico-swing 2.5s ease-in-out infinite; transform-origin:bottom center; }
-</style>
+
+        /* ─── MOBILE MENU BUTTON ─────────────────────────────────────── */
+        .mobile-menu-btn { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; margin-left: 8px; }
+        .mobile-menu-btn span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s; }
+        @media (max-width: 780px) {
+            nav.main-nav { display: none; }
+            .mobile-menu-btn { display: flex; }
+            .btn-cta { display: none; }
+        }
+        /* ─── MOBILE DRAWER ──────────────────────────────────────────── */
+        .mobile-drawer { display: none; position: fixed; inset: 0; z-index: 999; }
+        .mobile-drawer.open { display: block; }
+        .mobile-drawer-overlay { position: absolute; inset: 0; background: rgba(0,0,0,.5); backdrop-filter: blur(2px); }
+        .mobile-drawer-panel { position: absolute; top: 0; right: 0; width: min(320px, 90vw); height: 100%; background: var(--green-dark); display: flex; flex-direction: column; padding: 24px 0 32px; transform: translateX(100%); transition: transform .3s cubic-bezier(.4,0,.2,1); overflow-y: auto; }
+        .mobile-drawer.open .mobile-drawer-panel { transform: translateX(0); }
+        .mobile-drawer-close { align-self: flex-end; margin-right: 20px; background: none; border: none; color: rgba(255,255,255,.7); font-size: 28px; cursor: pointer; line-height: 1; padding: 4px 8px; }
+        .mobile-drawer-close:hover { color: #fff; }
+        .mobile-drawer-links { flex: 1; display: flex; flex-direction: column; padding: 16px 0; }
+        .mobile-drawer-links a { font-size: 15px; font-weight: 500; color: rgba(255,255,255,.8); text-decoration: none; padding: 12px 28px; border-bottom: 1px solid rgba(255,255,255,.06); transition: background .15s, color .15s; }
+        .mobile-drawer-links a:hover { background: rgba(255,255,255,.07); color: #fff; }
+        .mobile-drawer-links .drawer-section { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.3); padding: 18px 28px 6px; }
+        .mobile-drawer-cta { padding: 20px 28px 0; display: flex; justify-content: center; }
+        .mobile-drawer-cta a { background: var(--gold); color: var(--green-dark); font-weight: 700; font-size: 15px; padding: 13px 36px; border-radius: var(--radius-sm); text-decoration: none; text-align: center; width: 100%; transition: background .2s; }
+        .mobile-drawer-cta a:hover { background: var(--gold-light); }
+    </style>
 </head>
 <body>
 
@@ -241,9 +265,48 @@
         </nav>
         <div class="header-right">
             <a href="index.html#cotacao" class="btn-cta">Cote Grátis →</a>
+            <button class="mobile-menu-btn" id="mobileBtn" aria-label="Menu"><span></span><span></span><span></span></button>
         </div>
     </div>
 </header>
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+    <div class="mobile-drawer-panel">
+        <button class="mobile-drawer-close" id="drawerClose" aria-label="Fechar menu">&#x2715;</button>
+        <nav class="mobile-drawer-links">
+            <span class="drawer-section">Para Você</span>
+            <a href="seguro-auto.html">Seguro Auto</a>
+            <a href="seguro-vida.html">Seguro de Vida</a>
+            <a href="seguro-saude.html">Planos de Saúde</a>
+            <a href="seguro-residencial.html">Seguro Residencial</a>
+            <a href="seguro-moto.html">Seguro Moto</a>
+            <a href="seguro-viagem.html">Seguro Viagem</a>
+            <a href="seguro-eletronicos.html">Seguro Eletrônicos</a>
+            <span class="drawer-section">Para Empresa</span>
+            <a href="seguro-empresarial.html">Seguro Empresarial</a>
+            <a href="seguro-do.html">Directores &amp; Officers (D&amp;O)</a>
+            <a href="seguro-rc-profissional.html">RC Profissional</a>
+            <a href="seguro-transportes.html">Transportes e Cargas</a>
+            <a href="seguro-garantia.html">Seguro Garantia</a>
+            <a href="seguro-riscos-engenharia.html">Riscos de Engenharia</a>
+            <a href="seguro-responsabilidade-civil.html">Responsabilidade Civil</a>
+            <a href="seguro-condominio.html">Seguro Condomínio</a>
+            <span class="drawer-section">Consórcio</span>
+            <a href="consorcio-auto.html">Consórcio Auto</a>
+            <a href="consorcio-imovel.html">Consórcio Imobiliário</a>
+            <span class="drawer-section">Institucional</span>
+            <a href="institucional-empresa.html">A Empresa</a>
+            <a href="institucional-cancelamento.html">Política de Cancelamento</a>
+            <a href="institucional-contato.html">Contato</a>
+            <a href="institucional-responsabilidade-social.html">Responsabilidade Social</a>
+            <a href="institucional-trabalhe-conosco.html">Trabalhe Conosco</a>
+        </nav>
+        <div class="mobile-drawer-cta">
+            <a href="index.html#cotacao">Cote Grátis →</a>
+        </div>
+    </div>
+</div>
 
 <!-- PAGE HERO -->
 <section class="page-hero">
