@@ -1377,7 +1377,7 @@
             .mobile-menu-btn { display: flex; }
             .hdr-phone { display: none; }
             .hero-inner { padding: 48px 20px; gap: 24px; }
-            .hero-stage { height: 280px; }
+            .hero-stage { display: none; }
             .hero-stats { gap: 28px; flex-wrap: wrap; }
             .services-grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
             .services-grid .svc-card,
@@ -1387,6 +1387,9 @@
             .services-grid .svc-card.span-2 { grid-column: span 1; grid-row: span 1; min-height: 160px; }
             .svc-card.featured-dark .svc-name { font-size: 22px; max-width: 100%; }
             .svc-card.featured-dark .svc-desc { max-width: 100%; }
+            .svc-card.has-video .svc-name,
+            .svc-card.has-video .svc-desc,
+            .svc-card.has-video .svc-link { color: #fff; }
             .benefits-grid { grid-template-columns: 1fr; }
             .testimonials-grid { grid-template-columns: 1fr; }
             .renew-inner { flex-direction: column; text-align: center; }
@@ -1396,6 +1399,89 @@
             .container { padding: 0 20px; }
             .trust-bar-inner { justify-content: flex-start; padding: 0 20px; }
         }
+
+        /* ─── MOBILE DRAWER ────────────────────────────────────────────── */
+        .mobile-drawer {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+        }
+        .mobile-drawer.open { display: block; }
+        .mobile-drawer-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,.5);
+            backdrop-filter: blur(2px);
+        }
+        .mobile-drawer-panel {
+            position: absolute;
+            top: 0; right: 0;
+            width: min(320px, 90vw);
+            height: 100%;
+            background: var(--green-dark);
+            display: flex;
+            flex-direction: column;
+            padding: 24px 0 32px;
+            transform: translateX(100%);
+            transition: transform .3s cubic-bezier(.4,0,.2,1);
+            overflow-y: auto;
+        }
+        .mobile-drawer.open .mobile-drawer-panel { transform: translateX(0); }
+        .mobile-drawer-close {
+            align-self: flex-end;
+            margin-right: 20px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,.7);
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            padding: 4px 8px;
+        }
+        .mobile-drawer-close:hover { color: #fff; }
+        .mobile-drawer-links {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 16px 0;
+        }
+        .mobile-drawer-links a {
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255,255,255,.8);
+            text-decoration: none;
+            padding: 12px 28px;
+            border-bottom: 1px solid rgba(255,255,255,.06);
+            transition: background .15s, color .15s;
+        }
+        .mobile-drawer-links a:hover { background: rgba(255,255,255,.07); color: #fff; }
+        .mobile-drawer-links .drawer-section {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,.3);
+            padding: 18px 28px 6px;
+        }
+        .mobile-drawer-cta {
+            padding: 20px 28px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .mobile-drawer-cta a {
+            background: var(--gold);
+            color: var(--green-dark);
+            font-weight: 700;
+            font-size: 15px;
+            padding: 13px 36px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+            transition: background .2s;
+        }
+        .mobile-drawer-cta a:hover { background: var(--gold-light); }
     </style>
 </head>
 <body>
@@ -1474,6 +1560,45 @@
 
     </div>
 </header>
+
+<!-- ══════════════════════════════════════════════════════════ MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+    <div class="mobile-drawer-panel">
+        <button class="mobile-drawer-close" id="drawerClose" aria-label="Fechar menu">&#x2715;</button>
+        <nav class="mobile-drawer-links">
+            <span class="drawer-section">Para Você</span>
+            <a href="seguro-auto.html">Seguro Auto</a>
+            <a href="seguro-vida.html">Seguro de Vida</a>
+            <a href="seguro-saude.html">Planos de Saúde</a>
+            <a href="seguro-residencial.html">Seguro Residencial</a>
+            <a href="seguro-moto.html">Seguro Moto</a>
+            <a href="seguro-viagem.html">Seguro Viagem</a>
+            <a href="seguro-eletronicos.html">Seguro Eletrônicos</a>
+            <span class="drawer-section">Para Empresa</span>
+            <a href="seguro-empresarial.html">Seguro Empresarial</a>
+            <a href="seguro-do.html">Directores &amp; Officers (D&amp;O)</a>
+            <a href="seguro-rc-profissional.html">RC Profissional</a>
+            <a href="seguro-transportes.html">Transportes e Cargas</a>
+            <a href="seguro-garantia.html">Seguro Garantia</a>
+            <a href="seguro-riscos-engenharia.html">Riscos de Engenharia</a>
+            <a href="seguro-responsabilidade-civil.html">Responsabilidade Civil</a>
+            <a href="seguro-condominio.html">Seguro Condomínio</a>
+            <span class="drawer-section">Consórcio</span>
+            <a href="consorcio-auto.html">Consórcio Auto</a>
+            <a href="consorcio-imovel.html">Consórcio Imobiliário</a>
+            <span class="drawer-section">Institucional</span>
+            <a href="institucional-empresa.html">A Empresa</a>
+            <a href="institucional-cancelamento.html">Política de Cancelamento</a>
+            <a href="institucional-contato.html">Contato</a>
+            <a href="institucional-responsabilidade-social.html">Responsabilidade Social</a>
+            <a href="institucional-trabalhe-conosco.html">Trabalhe Conosco</a>
+        </nav>
+        <div class="mobile-drawer-cta">
+            <a href="#cotacao">Cote Grátis →</a>
+        </div>
+    </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════════════ HERO -->
 <section class="hero" id="inicio">
@@ -2036,6 +2161,18 @@
 </footer>
 
 <script>
+    // Mobile drawer
+    const mobileBtn   = document.getElementById('mobileBtn');
+    const mobileDrawer = document.getElementById('mobileDrawer');
+    const drawerClose  = document.getElementById('drawerClose');
+    const drawerOverlay = document.getElementById('drawerOverlay');
+    const openDrawer  = () => { mobileDrawer.classList.add('open'); document.body.style.overflow = 'hidden'; };
+    const closeDrawer = () => { mobileDrawer.classList.remove('open'); document.body.style.overflow = ''; };
+    mobileBtn.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click', closeDrawer);
+    drawerOverlay.addEventListener('click', closeDrawer);
+    mobileDrawer.querySelectorAll('a').forEach(a => a.addEventListener('click', closeDrawer));
+
     // Header shadow on scroll
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
