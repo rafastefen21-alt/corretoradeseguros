@@ -298,7 +298,7 @@
             display: block;
             width: 24px;
             height: 2px;
-            background: var(--text-dark);
+            background: #fff;
             border-radius: 2px;
             transition: all .3s;
         }
@@ -1398,6 +1398,11 @@
             .section { padding: 72px 0; }
             .container { padding: 0 20px; }
             .trust-bar-inner { justify-content: flex-start; padding: 0 20px; }
+
+            .header-inner { position: relative; justify-content: flex-end; }
+            .logo { position: absolute; left: 50%; transform: translateX(-50%); }
+            .btn-cta { display: none; }
+            .mobile-menu-btn span { background: #fff; }
         }
 
         /* ─── MOBILE DRAWER ────────────────────────────────────────────── */
@@ -1552,7 +1557,7 @@
 
         <!-- Actions -->
         <div class="header-right">
-            <a href="#cotacao" class="btn-cta">Cote Grátis →</a>
+            <a href="#cotacao" class="btn-cta">Cote Grátis</a>
             <button class="mobile-menu-btn" id="mobileBtn" aria-label="Menu">
                 <span></span><span></span><span></span>
             </button>
@@ -1595,7 +1600,7 @@
             <a href="institucional-trabalhe-conosco.html">Trabalhe Conosco</a>
         </nav>
         <div class="mobile-drawer-cta">
-            <a href="#cotacao">Cote Grátis →</a>
+            <a href="#cotacao">Cote Grátis</a>
         </div>
     </div>
 </div>
