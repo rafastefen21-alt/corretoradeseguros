@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renda Fixa | Godoi Broker Corretora de Seguros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green-dark:#1C3612; --green-primary:#2A4E1A; --green-medium:#396928;
+      --green-light:#4C8A38; --gold:#C8A228; --gold-light:#DDB93A;
+      --off-white:#F6F8F3; --gray:#F0F2EC;
+      --text-dark:#191C18; --text-medium:#48514A; --text-light:#6B7280;
+      --border:#E2E6DE; --radius-sm:8px; --radius-md:14px; --radius-lg:20px;
+      --shadow-sm:0 2px 12px rgba(0,0,0,.06); --shadow-md:0 8px 32px rgba(0,0,0,.10);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',system-ui,sans-serif; color:var(--text-dark); background:#fff; line-height:1.6; -webkit-font-smoothing:antialiased; }
+
+    /* ─── HEADER ─────────────────────────────────────────────────── */
+    .header { position:sticky; top:0; z-index:100; background:var(--green-dark); border-bottom:1px solid rgba(255,255,255,.08); box-shadow:0 4px 24px rgba(0,0,0,.2); }
+    .header-inner { max-width:1280px; margin:0 auto; padding:0 32px; height:72px; display:flex; align-items:center; gap:32px; }
+    .logo { display:flex; align-items:center; text-decoration:none; flex-shrink:0; }
+    .logo-img { height:56px; width:auto; display:block; }
+    nav.main-nav { display:flex; align-items:center; gap:2px; flex:1; justify-content:center; }
+    nav.main-nav > a, nav.main-nav .nav-item > a { font-size:13.5px; font-weight:500; color:rgba(255,255,255,.85); text-decoration:none; padding:7px 13px; border-radius:var(--radius-sm); transition:color .2s,background .2s; white-space:nowrap; display:flex; align-items:center; gap:5px; }
+    nav.main-nav > a:hover, nav.main-nav .nav-item > a:hover { color:#fff; background:rgba(255,255,255,.1); }
+    .nav-item { position:relative; }
+    .nav-item > a .caret { width:10px; height:10px; opacity:.7; transition:transform .2s; }
+    .nav-item:hover > a .caret { transform:rotate(180deg); }
+    .nav-dropdown { position:absolute; top:calc(100% + 6px); left:0; background:var(--green-dark); border:1px solid rgba(255,255,255,.12); border-radius:var(--radius-md); padding:6px 0; min-width:230px; box-shadow:0 16px 48px rgba(0,0,0,.35); opacity:0; visibility:hidden; transform:translateY(8px); transition:opacity .18s,transform .18s,visibility .18s; z-index:200; }
+    .nav-item:hover .nav-dropdown { opacity:1; visibility:visible; transform:translateY(0); }
+    .nav-dropdown a { display:block; font-size:13px; font-weight:500; color:rgba(255,255,255,.8); padding:9px 18px; text-decoration:none; transition:background .15s,color .15s; white-space:nowrap; }
+    .nav-dropdown a:hover { background:rgba(255,255,255,.1); color:#fff; }
+    .header-right { display:flex; align-items:center; gap:14px; margin-left:auto; }
+    .btn-cta { background:var(--gold); color:var(--green-dark); font-weight:700; font-size:14px; padding:10px 22px; border-radius:var(--radius-sm); text-decoration:none; white-space:nowrap; transition:background .2s,transform .2s; }
+    .btn-cta:hover { background:var(--gold-light); transform:translateY(-1px); }
+
+    /* ─── MOBILE MENU ─────────────────────────────────────────────── */
+    .mobile-menu-btn { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; margin-left:8px; }
+    .mobile-menu-btn span { display:block; width:24px; height:2px; background:#fff; border-radius:2px; }
+    .mobile-drawer { display:none; position:fixed; inset:0; z-index:999; }
+    .mobile-drawer.open { display:block; }
+    .mobile-drawer-overlay { position:absolute; inset:0; background:rgba(0,0,0,.5); backdrop-filter:blur(2px); }
+    .mobile-drawer-panel { position:absolute; top:0; right:0; width:min(320px,90vw); height:100%; background:var(--green-dark); display:flex; flex-direction:column; padding:24px 0 32px; transform:translateX(100%); transition:transform .3s cubic-bezier(.4,0,.2,1); overflow-y:auto; }
+    .mobile-drawer.open .mobile-drawer-panel { transform:translateX(0); }
+    .mobile-drawer-close { align-self:flex-end; margin-right:20px; background:none; border:none; color:rgba(255,255,255,.7); font-size:28px; cursor:pointer; line-height:1; padding:4px 8px; }
+    .mobile-drawer-links { flex:1; display:flex; flex-direction:column; padding:16px 0; }
+    .mobile-drawer-links a { font-size:15px; font-weight:500; color:rgba(255,255,255,.8); text-decoration:none; padding:12px 28px; border-bottom:1px solid rgba(255,255,255,.06); transition:background .15s,color .15s; }
+    .mobile-drawer-links a:hover { background:rgba(255,255,255,.07); color:#fff; }
+    .mobile-drawer-links .drawer-section { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,.3); padding:18px 28px 6px; }
+    .mobile-drawer-cta { padding:20px 28px 0; display:flex; justify-content:center; }
+    .mobile-drawer-cta a { background:var(--gold); color:var(--green-dark); font-weight:700; font-size:15px; padding:13px 36px; border-radius:var(--radius-sm); text-decoration:none; text-align:center; width:100%; }
+    @media (max-width:780px) {
+      nav.main-nav { display:none; }
+      .mobile-menu-btn { display:flex; }
+      .btn-cta { display:none; }
+      .header-inner { position:relative !important; justify-content:flex-end !important; }
+      .logo { position:absolute !important; left:50% !important; transform:translateX(-50%) !important; }
+    }
+
+    /* ─── HERO ────────────────────────────────────────────────────── */
+    .page-hero {
+      position:relative; overflow:hidden;
+      background:var(--green-dark);
+      padding:88px 64px 96px;
+    }
+    .page-hero::before {
+      content:''; position:absolute; inset:0;
+      background:url("assets/hero-seguro-empresarial.jpg") center/cover no-repeat;
+      opacity:.25;
+    }
+    .page-hero-inner {
+      position:relative; z-index:2;
+      max-width:1280px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+    }
+    .page-hero-tag {
+      display:inline-block; background:rgba(200,162,40,.18); color:var(--gold);
+      font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      padding:5px 14px; border-radius:99px; border:1px solid rgba(200,162,40,.3);
+      margin-bottom:20px;
+    }
+    .page-hero h1 {
+      font-size:clamp(40px,5vw,72px); font-weight:900; color:#fff;
+      line-height:1.05; letter-spacing:-1.5px; margin-bottom:20px;
+    }
+    .page-hero h1 em { color:var(--gold); font-style:normal; }
+    .page-hero-sub {
+      font-size:18px; color:rgba(255,255,255,.72);
+      max-width:520px; line-height:1.7; margin-bottom:36px;
+    }
+    .page-hero-btn {
+      display:inline-block; background:var(--gold); color:var(--green-dark);
+      font-weight:700; font-size:15px; padding:14px 32px;
+      border-radius:var(--radius-sm); text-decoration:none;
+      transition:background .2s,transform .2s;
+    }
+    .page-hero-btn:hover { background:var(--gold-light); transform:translateY(-2px); }
+    .page-hero-right {
+      display:flex; flex-direction:column; gap:16px;
+    }
+    .hero-stat {
+      background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius-md); padding:20px 24px;
+      display:flex; gap:16px; align-items:center;
+    }
+    .hero-stat-num { font-size:32px; font-weight:900; color:var(--gold); line-height:1; }
+    .hero-stat-lbl { font-size:13px; color:rgba(255,255,255,.65); margin-top:4px; }
+
+    /* ─── INTRO ───────────────────────────────────────────────────── */
+    .intro-section {
+      padding:80px 64px;
+      max-width:1280px; margin:0 auto;
+    }
+    .intro-grid {
+      display:grid; grid-template-columns:1.1fr 1fr; gap:64px; align-items:start;
+    }
+    .intro-label {
+      font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      color:var(--gold); margin-bottom:14px;
+    }
+    .intro-section h2 {
+      font-size:clamp(26px,3vw,40px); font-weight:900; color:var(--green-dark);
+      line-height:1.2; margin-bottom:20px;
+    }
+    .intro-section p {
+      font-size:16px; color:var(--text-medium); line-height:1.8; margin-bottom:16px;
+    }
+    .intro-highlight {
+      background:var(--off-white); border-left:3px solid var(--gold);
+      border-radius:0 var(--radius-md) var(--radius-md) 0;
+      padding:20px 24px; margin-top:8px;
+    }
+    .intro-highlight p { font-size:14.5px; color:var(--text-medium); margin:0; }
+    .godoi-card {
+      background:var(--green-dark); border-radius:var(--radius-lg);
+      padding:32px; color:#fff;
+    }
+    .godoi-card h3 { font-size:18px; font-weight:800; color:var(--gold); margin-bottom:20px; }
+    .godoi-card ul { list-style:none; display:flex; flex-direction:column; gap:12px; }
+    .godoi-card ul li {
+      display:flex; gap:12px; align-items:flex-start;
+      font-size:14.5px; color:rgba(255,255,255,.8); line-height:1.55;
+    }
+    .godoi-card ul li::before {
+      content:''; display:inline-block; width:8px; height:8px; min-width:8px;
+      border-right:2px solid var(--gold); border-top:2px solid var(--gold);
+      transform:rotate(45deg); margin-top:5px; flex-shrink:0;
+    }
+
+    /* ─── VANTAGENS ──────────────────────────────────────────────── */
+    .vantagens-section {
+      background:var(--gray); padding:80px 64px;
+    }
+    .section-wrap { max-width:1280px; margin:0 auto; }
+    .section-heading { text-align:center; margin-bottom:52px; }
+    .section-heading .label {
+      font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase;
+      color:var(--gold); margin-bottom:12px;
+    }
+    .section-heading h2 {
+      font-size:clamp(26px,3vw,40px); font-weight:900; color:var(--green-dark);
+      margin-bottom:14px; line-height:1.2;
+    }
+    .section-heading p { font-size:16px; color:var(--text-medium); max-width:560px; margin:0 auto; }
+    .vant-grid {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:20px;
+    }
+    .vant-card {
+      background:#fff; border:1px solid var(--border);
+      border-radius:var(--radius-lg); padding:28px 24px;
+      transition:box-shadow .2s,transform .2s;
+    }
+    .vant-card:hover { box-shadow:var(--shadow-md); transform:translateY(-3px); }
+    .vant-icon {
+      width:48px; height:48px; border-radius:var(--radius-md);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:16px;
+    }
+    .vant-icon.green { background:rgba(76,138,56,.12); color:#2A4E1A; }
+    .vant-icon.gold  { background:rgba(200,162,40,.12); color:#A07B0C; }
+    .vant-icon.blue  { background:rgba(59,130,246,.10); color:#1d4ed8; }
+    .vant-icon.teal  { background:rgba(13,148,136,.10); color:#0f766e; }
+    .vant-card h3 { font-size:16px; font-weight:800; color:var(--green-dark); margin-bottom:10px; }
+    .vant-card p { font-size:13.5px; color:var(--text-medium); line-height:1.65; }
+
+    /* ─── MODALIDADES ─────────────────────────────────────────────── */
+    .tipos-section { padding:80px 64px; }
+    .tipos-grid {
+      display:grid; gap:20px;
+      grid-template-columns:repeat(3,1fr);
+    }
+    .tipo-card {
+      border:1px solid var(--border); border-radius:var(--radius-lg);
+      padding:32px; position:relative; overflow:hidden;
+      transition:box-shadow .2s,transform .2s;
+    }
+    .tipo-card:hover { box-shadow:var(--shadow-md); transform:translateY(-3px); }
+    .tipo-num {
+      position:absolute; top:24px; right:24px;
+      font-size:48px; font-weight:900; color:var(--green-dark);
+      opacity:.06; line-height:1;
+    }
+    .tipo-badge {
+      display:inline-block; background:rgba(28,54,18,.08); color:var(--green-dark);
+      font-size:11px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+      padding:4px 12px; border-radius:99px; margin-bottom:16px;
+    }
+    .tipo-card h3 { font-size:18px; font-weight:800; color:var(--green-dark); margin-bottom:10px; }
+    .tipo-card p { font-size:14px; color:var(--text-medium); line-height:1.7; }
+
+    /* ─── COMO COMEÇAR ─────────────────────────────────────────────── */
+    .passos-section {
+      background:var(--green-dark); padding:80px 64px;
+    }
+    .passos-section .section-heading h2 { color:#fff; }
+    .passos-section .section-heading p { color:rgba(255,255,255,.6); }
+    .passos-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:24px;
+    }
+    .passo {
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+      border-radius:var(--radius-lg); padding:32px;
+    }
+    .passo-num {
+      font-size:40px; font-weight:900; color:var(--gold);
+      line-height:1; margin-bottom:16px; opacity:.9;
+    }
+    .passo h3 { font-size:17px; font-weight:800; color:#fff; margin-bottom:10px; }
+    .passo p { font-size:14px; color:rgba(255,255,255,.65); line-height:1.7; }
+
+    /* ─── CTA BOTTOM ─────────────────────────────────────────────── */
+    .cta-section {
+      background:linear-gradient(135deg, #1C3612, #2A4E1A);
+      padding:80px 64px; text-align:center;
+    }
+    .cta-section h2 { font-size:clamp(28px,3.5vw,44px); font-weight:900; color:#fff; margin-bottom:14px; }
+    .cta-section p { font-size:17px; color:rgba(255,255,255,.7); margin-bottom:36px; max-width:540px; margin-left:auto; margin-right:auto; }
+    .cta-btn {
+      display:inline-block; background:var(--gold); color:var(--green-dark);
+      font-weight:700; font-size:16px; padding:16px 40px;
+      border-radius:var(--radius-sm); text-decoration:none;
+      transition:background .2s,transform .2s;
+    }
+    .cta-btn:hover { background:var(--gold-light); transform:translateY(-2px); }
+
+    /* ─── FOOTER ──────────────────────────────────────────────────── */
+    footer { background:var(--green-dark); padding:56px 0 0; }
+    .footer-grid { max-width:1280px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:2fr 1fr 1fr 1.2fr; gap:48px; }
+    .ftr-brand-name { font-size:20px; font-weight:800; color:#fff; margin-bottom:2px; }
+    .ftr-brand-sub { font-size:10px; font-weight:700; color:var(--gold); text-transform:uppercase; letter-spacing:1px; margin-bottom:16px; }
+    .ftr-desc { font-size:14px; color:rgba(255,255,255,.5); line-height:1.75; max-width:270px; margin-bottom:18px; }
+    .ftr-col h4 { font-size:12px; font-weight:700; color:rgba(255,255,255,.4); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; }
+    .ftr-col ul { list-style:none; display:flex; flex-direction:column; gap:8px; }
+    .ftr-col ul li a { font-size:14px; color:rgba(255,255,255,.65); text-decoration:none; transition:color .2s; }
+    .ftr-col ul li a:hover { color:#fff; }
+    .ftr-contacts { display:flex; flex-direction:column; gap:8px; }
+    .ftr-contacts a { font-size:13px; color:rgba(255,255,255,.6); text-decoration:none; transition:color .2s; }
+    .ftr-contacts a:hover { color:var(--gold); }
+    .ftr-bottom { border-top:1px solid rgba(255,255,255,.08); margin-top:48px; padding:24px 32px; }
+    .ftr-bottom p { font-size:12px; color:rgba(255,255,255,.35); }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────────────── */
+    @media (max-width:1024px) {
+      .page-hero { padding:72px 40px 80px; }
+      .page-hero-inner { grid-template-columns:1fr; gap:40px; }
+      .page-hero-right { display:grid; grid-template-columns:1fr 1fr; }
+      .intro-section,.vantagens-section,.tipos-section,.passos-section,.cta-section { padding:64px 40px; }
+      .intro-grid { grid-template-columns:1fr; gap:40px; }
+      .vant-grid { grid-template-columns:repeat(2,1fr); }
+      .tipos-grid { grid-template-columns:repeat(2,1fr); }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
+    }
+    @media (max-width:640px) {
+      .page-hero { padding:56px 24px 64px; }
+      .intro-section,.vantagens-section,.tipos-section,.passos-section,.cta-section { padding:56px 24px; }
+      .vant-grid { grid-template-columns:1fr; }
+      .tipos-grid { grid-template-columns:1fr; }
+      .passos-grid { grid-template-columns:1fr; }
+      .page-hero-right { grid-template-columns:1fr; }
+      .footer-grid { grid-template-columns:1fr; gap:32px; padding:0 24px; }
+    }
+  </style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo"><img class="logo-img" src="assets/logo.png" alt="Godoi Broker"></a>
+    <nav class="main-nav">
+      <div class="nav-item">
+        <a href="index.html#servicos">Para Você <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+        <div class="nav-dropdown">
+          <a href="seguro-auto.html">Seguro Auto</a>
+          <a href="seguro-vida.html">Seguro de Vida</a>
+          <a href="seguro-saude.html">Planos de Saúde</a>
+          <a href="seguro-residencial.html">Seguro Residencial</a>
+          <a href="seguro-moto.html">Seguro Moto</a>
+          <a href="seguro-viagem.html">Seguro Viagem</a>
+          <a href="seguro-eletronicos.html">Seguro Eletrônicos</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="index.html#servicos">Para Empresa <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+        <div class="nav-dropdown">
+          <a href="seguro-empresarial.html">Seguro Empresarial</a>
+          <a href="seguro-do.html">Directores &amp; Officers (D&amp;O)</a>
+          <a href="seguro-rc-profissional.html">RC Profissional</a>
+          <a href="seguro-transportes.html">Transportes e Cargas</a>
+          <a href="seguro-garantia.html">Seguro Garantia</a>
+          <a href="seguro-riscos-engenharia.html">Riscos de Engenharia</a>
+          <a href="seguro-responsabilidade-civil.html">Responsabilidade Civil</a>
+          <a href="seguro-condominio.html">Seguro Condomínio</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="investimentos.html">Investimentos <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+        <div class="nav-dropdown">
+          <a href="investimentos-previdencia.html">Previdência Privada</a>
+          <a href="investimentos-renda-fixa.html">Renda Fixa</a>
+          <a href="investimentos-fundos.html">Fundos de Investimento</a>
+          <a href="investimentos-acoes.html">Ações</a>
+          <a href="investimentos-coe.html">COE</a>
+          <a href="investimentos-tesouro.html">Tesouro Direto</a>
+          <a href="investimentos-fiis.html">Fundos Imobiliários</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="consorcio-auto.html">Consórcio <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+        <div class="nav-dropdown">
+          <a href="consorcio-auto.html">Consórcio Auto</a>
+          <a href="consorcio-imovel.html">Consórcio Imobiliário</a>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="institucional-empresa.html">Institucional <svg class="caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="2,3 5,7 8,3"/></svg></a>
+        <div class="nav-dropdown">
+          <a href="institucional-empresa.html">A Empresa</a>
+          <a href="institucional-cancelamento.html">Política de Cancelamento</a>
+          <a href="institucional-contato.html">Contato</a>
+          <a href="institucional-responsabilidade-social.html">Responsabilidade Social</a>
+          <a href="institucional-trabalhe-conosco.html">Trabalhe Conosco</a>
+        </div>
+      </div>
+    </nav>
+    <div class="header-right">
+      <a href="institucional-contato.html" class="btn-cta">Fale Conosco</a>
+      <button class="mobile-menu-btn" id="mobileBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="mobile-drawer-overlay" id="drawerOverlay"></div>
+  <div class="mobile-drawer-panel">
+    <button class="mobile-drawer-close" id="drawerClose">&#x2715;</button>
+    <nav class="mobile-drawer-links">
+      <span class="drawer-section">Para Você</span>
+      <a href="seguro-auto.html">Seguro Auto</a>
+      <a href="seguro-vida.html">Seguro de Vida</a>
+      <a href="seguro-saude.html">Planos de Saúde</a>
+      <a href="seguro-residencial.html">Seguro Residencial</a>
+      <a href="seguro-moto.html">Seguro Moto</a>
+      <a href="seguro-viagem.html">Seguro Viagem</a>
+      <a href="seguro-eletronicos.html">Seguro Eletrônicos</a>
+      <span class="drawer-section">Para Empresa</span>
+      <a href="seguro-empresarial.html">Seguro Empresarial</a>
+      <a href="seguro-do.html">Directores &amp; Officers (D&amp;O)</a>
+      <a href="seguro-rc-profissional.html">RC Profissional</a>
+      <a href="seguro-transportes.html">Transportes e Cargas</a>
+      <a href="seguro-garantia.html">Seguro Garantia</a>
+      <a href="seguro-riscos-engenharia.html">Riscos de Engenharia</a>
+      <a href="seguro-responsabilidade-civil.html">Responsabilidade Civil</a>
+      <a href="seguro-condominio.html">Seguro Condomínio</a>
+      <span class="drawer-section">Investimentos</span>
+      <a href="investimentos-previdencia.html">Previdência Privada</a>
+      <a href="investimentos-renda-fixa.html">Renda Fixa</a>
+      <a href="investimentos-fundos.html">Fundos de Investimento</a>
+      <a href="investimentos-acoes.html">Ações</a>
+      <a href="investimentos-coe.html">COE</a>
+      <a href="investimentos-tesouro.html">Tesouro Direto</a>
+      <a href="investimentos-fiis.html">Fundos Imobiliários</a>
+      <span class="drawer-section">Consórcio</span>
+      <a href="consorcio-auto.html">Consórcio Auto</a>
+      <a href="consorcio-imovel.html">Consórcio Imobiliário</a>
+      <span class="drawer-section">Institucional</span>
+      <a href="institucional-empresa.html">A Empresa</a>
+      <a href="institucional-cancelamento.html">Política de Cancelamento</a>
+      <a href="institucional-contato.html">Contato</a>
+      <a href="institucional-responsabilidade-social.html">Responsabilidade Social</a>
+      <a href="institucional-trabalhe-conosco.html">Trabalhe Conosco</a>
+    </nav>
+    <div class="mobile-drawer-cta"><a href="institucional-contato.html">Fale Conosco</a></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-left">
+      <div class="page-hero-tag">Investimentos</div>
+      <h1>Renda <em>Fixa</em></h1>
+      <p class="page-hero-sub">Poupança ficou no passado. Conheça opções mais rentáveis, seguras e com liquidez para o seu dinheiro render de verdade.</p>
+      <a href="institucional-contato.html" class="page-hero-btn">Falar com um especialista</a>
+    </div>
+    <div class="page-hero-right">
+      <div class="hero-stat"><div><div class="hero-stat-num">Proteção FGC</div><div class="hero-stat-lbl">Cobertura de até R$ 250 mil por CPF e instituição</div></div></div>
+      <div class="hero-stat"><div><div class="hero-stat-num">Liquidez</div><div class="hero-stat-lbl">Opções com resgate no mesmo dia</div></div></div>
+      <div class="hero-stat"><div><div class="hero-stat-num">Previsibilidade</div><div class="hero-stat-lbl">Rentabilidade conhecida na aplicação</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro-section">
+  <div class="intro-grid">
+    <div>
+      <div class="intro-label">Entenda o produto</div>
+      <h2>O que é Renda Fixa?</h2>
+      <p>A Renda Fixa é uma classe de investimento onde as regras de rentabilidade são definidas no momento da aplicação. Você sabe antecipadamente quanto vai receber ou como será calculado o seu rendimento.</p>
+      <p>Diferente da renda variável, aqui você tem previsibilidade e, em muitos casos, proteção do capital investido. É ideal para quem quer segurança, liquidez e retornos superiores à poupança.</p>
+    </div>
+    <div class="godoi-card">
+      <h3>Por que investir com a Godoi Broker?</h3>
+      <ul>
+          <li>Acesso às melhores taxas do mercado</li>
+          <li>Assessoria especializada para escolher o produto certo</li>
+          <li>Acompanhamento contínuo da sua carteira</li>
+          <li>Opções para todos os perfis: conservador ao moderado</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VANTAGENS -->
+<section class="vantagens-section">
+  <div class="section-wrap">
+    <div class="section-heading">
+      <div class="label">Benefícios</div>
+      <h2>Por que investir em Renda Fixa?</h2>
+    </div>
+    <div class="vant-grid">
+      <div class="vant-card">
+        <div class="vant-icon green"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3L4 7v7c0 7 4.5 13 10 14 5.5-1 10-7 10-14V7L14 3z"/><path d="M10 14l3 3 5-6" stroke-width="2"/></svg></div>
+        <h3>Segurança</h3>
+        <p>Muitos produtos têm cobertura do FGC de até R$ 250 mil por CPF e instituição financeira.</p>
+      </div>
+      <div class="vant-card">
+        <div class="vant-icon gold"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polyline points="4,22 10,14 15,18 22,8 25,11"/><polyline points="22,8 25,8 25,11"/></svg></div>
+        <h3>Rentabilidade</h3>
+        <p>Retornos superiores à poupança, com opções atreladas ao CDI, IPCA ou prefixadas.</p>
+      </div>
+      <div class="vant-card">
+        <div class="vant-icon blue"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 14a10 10 0 1 0 1.5-5.2"/><path d="M4 4v5h5"/></svg></div>
+        <h3>Liquidez</h3>
+        <p>Existem opções com liquidez diária para resgates a qualquer momento, sem abrir mão da rentabilidade.</p>
+      </div>
+      <div class="vant-card">
+        <div class="vant-icon teal"><svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 22L22 6"/><circle cx="9" cy="9" r="3"/><circle cx="19" cy="19" r="3"/></svg></div>
+        <h3>Diversificação</h3>
+        <p>CDB, LCI, LCA, Tesouro Direto, Debêntures, CRI e CRA — inúmeras opções para montar sua carteira.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODALIDADES -->
+<section class="tipos-section">
+  <div class="section-wrap">
+    <div class="section-heading">
+      <div class="label">Modalidades</div>
+      <h2>Tipos de Renda Fixa</h2>
+    </div>
+    <div class="tipos-grid" >
+    <div class="tipo-card">
+      <span class="tipo-num">01</span>
+      <span class="tipo-badge">01</span>
+      <h3>CDB</h3>
+      <p>Certificado de Depósito Bancário. Você empresta dinheiro ao banco e recebe retorno fixo ou variável (% do CDI). Conta com proteção do FGC.</p>
+    </div>
+    <div class="tipo-card">
+      <span class="tipo-num">02</span>
+      <span class="tipo-badge">02</span>
+      <h3>LCI / LCA</h3>
+      <p>Letras de Crédito Imobiliário e do Agronegócio. Isentos de IR para pessoa física e com boa rentabilidade.</p>
+    </div>
+    <div class="tipo-card">
+      <span class="tipo-num">03</span>
+      <span class="tipo-badge">03</span>
+      <h3>Debêntures</h3>
+      <p>Títulos de dívida emitidos por empresas. Rentabilidade geralmente superior às demais opções, com risco um pouco mais elevado.</p>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO COMEÇAR -->
+<section class="passos-section">
+  <div class="section-wrap">
+    <div class="section-heading">
+      <div class="label">Passo a passo</div>
+      <h2>Como começar a investir</h2>
+      <p>Simples, rápido e com assessoria especializada do início ao fim.</p>
+    </div>
+    <div class="passos-grid">
+    <div class="passo">
+      <div class="passo-num">01</div>
+      <h3>Defina seu objetivo</h3>
+      <p>Reserva de emergência, objetivo de médio prazo ou crescimento patrimonial? O objetivo determina o melhor produto.</p>
+    </div>
+    <div class="passo">
+      <div class="passo-num">02</div>
+      <h3>Escolha o produto</h3>
+      <p>Com base no prazo e perfil de risco, selecionamos as opções com melhores taxas disponíveis no mercado.</p>
+    </div>
+    <div class="passo">
+      <div class="passo-num">03</div>
+      <h3>Acompanhe os rendimentos</h3>
+      <p>Nossa equipe monitora continuamente a sua carteira e avisa quando surgem oportunidades ainda melhores.</p>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2>Comece a investir em Renda Fixa hoje</h2>
+  <p>Fale com um especialista da Godoi Broker e monte a estratégia ideal para o seu perfil.</p>
+  <a href="institucional-contato.html" class="cta-btn">Falar com um especialista</a>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="ftr-brand-name">Godoi Broker</div>
+      <div class="ftr-brand-sub">Corretora de Seguros</div>
+      <p class="ftr-desc">Há mais de 15 anos protegendo famílias e empresas com as melhores soluções em seguros e investimentos.</p>
+      <div class="ftr-contacts">
+        <a href="tel:+5511914343277">+55 11 91434-3277</a>
+        <a href="tel:+5511919478028">+55 11 91947-8028</a>
+        <a href="tel:+5511914458221">+55 11 91445-8221</a>
+        <a href="mailto:contato.comercial@godoibroker.com.br">contato.comercial@godoibroker.com.br</a>
+      </div>
+    </div>
+    <div class="ftr-col">
+      <h4>Investimentos</h4>
+      <ul>
+        <li><a href="investimentos-previdencia.html">Previdência Privada</a></li>
+        <li><a href="investimentos-renda-fixa.html">Renda Fixa</a></li>
+        <li><a href="investimentos-fundos.html">Fundos de Investimento</a></li>
+        <li><a href="investimentos-acoes.html">Ações</a></li>
+        <li><a href="investimentos-coe.html">COE</a></li>
+        <li><a href="investimentos-tesouro.html">Tesouro Direto</a></li>
+        <li><a href="investimentos-fiis.html">Fundos Imobiliários</a></li>
+      </ul>
+    </div>
+    <div class="ftr-col">
+      <h4>Seguros</h4>
+      <ul>
+        <li><a href="seguro-auto.html">Seguro Auto</a></li>
+        <li><a href="seguro-vida.html">Seguro de Vida</a></li>
+        <li><a href="seguro-saude.html">Planos de Saúde</a></li>
+        <li><a href="seguro-empresarial.html">Seguro Empresarial</a></li>
+        <li><a href="seguro-residencial.html">Seguro Residencial</a></li>
+        <li><a href="consorcio-auto.html">Consórcio</a></li>
+      </ul>
+    </div>
+    <div class="ftr-col">
+      <h4>Empresa</h4>
+      <ul>
+        <li><a href="institucional-empresa.html">Quem Somos</a></li>
+        <li><a href="institucional-contato.html">Contato</a></li>
+        <li><a href="institucional-responsabilidade-social.html">Resp. Social</a></li>
+        <li><a href="institucional-trabalhe-conosco.html">Trabalhe Conosco</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="ftr-bottom">
+    <p>&copy; 2025 Godoi Broker Corretora de Seguros &mdash; Todos os direitos reservados.</p>
+  </div>
+</footer>
+<script>
+  const btn=document.getElementById('mobileBtn'),drawer=document.getElementById('mobileDrawer'),
+    overlay=document.getElementById('drawerOverlay'),close=document.getElementById('drawerClose');
+  const open=()=>drawer.classList.add('open');
+  const shut=()=>drawer.classList.remove('open');
+  btn.addEventListener('click',open);
+  overlay.addEventListener('click',shut);
+  close.addEventListener('click',shut);
+</script>
+</body></html>
